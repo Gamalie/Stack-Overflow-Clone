@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <h4>StackClone</h4>
+        </div>
+        <div class="search-bar">
+            <input type="search" placeholder="Search">
+        </div>
+        <div class="profile">
+            <p>Name</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="sidebar">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic consequuntur impedit nihil. Earum voluptas rem similique. Non vitae hic esse itaque voluptas eum, ipsum quidem in alias, maiores, nostrum commodi?
+            </p>
+        </div>
+        <div class="right" *ngIf="action">
+        <div class="question" *ngFor="let question of Question" >
+            <div class="statistics">
+                <p >{{question.Vote}} Vote</p>
+                <p>{{question.Answers}} Answers</p>
+            </div>
+            <div class="content" >
+              <h3 (click)="singleQuestion(question.QuestionId)">{{question.Title}}</h3>  
+                <p style="font-size:20px;">{{question.Body}}</p>
+                <div class="comment-field">
+                    <p>Comment</p>
+                    <input type="text" id="comment" style="width:80%; height:30px;">
+                </div>
+                <div class="tags-and-username">
+                    <div class="tag">
+                        <p id="tag">{{question.Tag[0].TagBody}}</p>
+                        <p id="tag">{{question.Tag[1].TagBody}}</p>
+                    </div>
+                    <div class="username">
+                        <p>@CodeForLife</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- one question -->
+
+<!-- <div class="right" *ngIf="action">
+<div class="question"*ngFor="let question of Questions">
+    <div class="statistics">
+        <p>{{question.Vote}} Vote</p>
+        <p>{{question.Answers}} Answers</p>
+    </div>
+    <div class="content" >
+      <a href=""><h3>{{question.Title}}</h3></a>  
+        <p style="font-size:20px;">{{question.Body}}</p>
+        <div class="answers">
+            <div class="answer-votes">
+                <p>up</p>
+                <p>7</p>
+                <p>down</p>
+            </div>
+            <div class="answer">
+                <h3>Answers</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, fugiat!</p>
+
+            </div>
+        </div>
+        <div class="comment-field">
+            <p>Comment</p>
+            <input type="text" id="comment" style="width:80%; height:30px;">
+        </div>
+        <div class="tags-and-username">
+            <div class="tag">
+                <p id="tag">{{question.Tag[0].TagBody}}</p>
+                <p id="tag">{{question.Tag[1].TagBody}}</p>
+            </div>
+            <div class="username">
+                <p>@CodeForLife</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div> -->
+
+
+
+
+    </div>
+    </div>
+</div>
