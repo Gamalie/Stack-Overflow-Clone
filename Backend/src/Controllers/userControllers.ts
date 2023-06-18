@@ -148,3 +148,94 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
             
         }
     }
+
+    export const updateUserProfile= async(req:Request,res:Response)=>{
+    try {
+        const{Picture, Username,About_me,Email,Title}=req.body   
+        const{user_id}=req.params
+        // console.log(User_id)
+        const pool =  await mssql.connect(sqlConfig)
+        console.log(req.body);
+
+        let user:Users =(await  pool.request()
+        .input("user_email",Email)
+        .execute('getUserByEmail')).recordset[0]
+
+        if(!user){
+            return res.status(404).json({message:"User Not Found"})
+        }
+
+        await pool.request()
+        .input("user_id",user_id)
+        .input("picture",Picture)
+        .input("username",Username)
+        .input("about_me",About_me)
+        .input('title',Title)
+        .execute('updateProfile')
+
+        return res.status(201).json({message:"User updated successfully"})
+        
+    } catch (error:any) {
+         //server side error
+         return res.status(500).json(error.message)
+        
+    }
+}
+
+
+export const resetPassword = async(req:Request,res:Response)=>{
+    try {
+   
+     const{ Email,Password}=req.body 
+     const pool = await mssql.connect(sqlConfig)
+   
+     let user:Users =(await pool.request()
+     .input("user_email",Email)
+     .execute('getUserByEmail')).recordset[0]
+     console.log(Email);
+   
+     let hashedPassword= await bcrypt.hash(Password,10)
+     if(!user){
+   
+      return res.status(404).json({message:"User Not Found"})
+     }
+   
+     await pool.request()
+   
+     .input("user_email",Email)
+     .input("user_password",hashedPassword)
+     .execute('resetPassword')
+     console.log(Email);
+   
+   
+     return res.status(201).json({message:"User updated successfully"})
+   
+    } catch (error:any) {
+   
+     return res.status(500).json(error.message)
+   
+    }
+   
+   }
+
+
+   export const deleteUser=async (req:Request<{user_id:string}>,res:Response)=>{
+
+    try {
+        const{user_id}=req.params
+        // console.log({user_email})
+
+        const pool =  await mssql.connect(sqlConfig)
+        let user:Users []=(await  pool.request()
+        .input('user_id', user_id)
+        .execute('deleteUser')).recordset
+ 
+        return res.status(200).json({message:"User deleted successfully"})
+  
+    } catch (error:any) {
+        //server side error
+        return res.status(500).json(error.message)
+        
+    }
+
+}

@@ -35,6 +35,7 @@ export interface Questions{
     Id:number,
     Title:string,
     Body:string,
+    Is_deleted:number
     
 }
 
