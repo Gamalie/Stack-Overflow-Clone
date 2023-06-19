@@ -8,6 +8,7 @@ import {registrationSchema} from '../helpers/userValidation'
 import dotenv from 'dotenv'
 import path from 'path'
 import { DatabaseHelper} from '../dbHelpers/index'
+import { decodedData } from "../interface";
 
 
 
@@ -36,6 +37,7 @@ export interface ExtendedRequest extends Request{
     params: {
         User_id:string
     }
+    info?:decodedData
 }
 
 dotenv.config({path:path.resolve(__dirname,'../../.env')})
@@ -205,8 +207,6 @@ export const resetPassword = async(req:Request,res:Response)=>{
      .input("user_email",Email)
      .input("user_password",hashedPassword)
      .execute('resetPassword')
-     console.log(Email);
-   
    
      return res.status(201).json({message:"User updated successfully"})
    
@@ -219,18 +219,18 @@ export const resetPassword = async(req:Request,res:Response)=>{
    }
 
 
-   export const deleteUser=async (req:Request<{user_id:string}>,res:Response)=>{
+   export const deleteUser=async (req:ExtendedRequest,res:Response)=>{
 
     try {
-        const{user_id}=req.params
+        if(req.info && req.info.user_role==='admin'){
+        const{User_id}=req.params
         // console.log({user_email})
-
         const pool =  await mssql.connect(sqlConfig)
         let user:Users []=(await  pool.request()
-        .input('user_id', user_id)
+        .input('user_id', User_id)
         .execute('deleteUser')).recordset
  
-        return res.status(200).json({message:"User deleted successfully"})
+        return res.status(200).json({message:"User deleted successfully"})}
   
     } catch (error:any) {
         //server side error

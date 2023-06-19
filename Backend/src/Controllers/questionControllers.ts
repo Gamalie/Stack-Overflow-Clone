@@ -28,12 +28,12 @@ export const addQuestion = async (req: Request<{user_id:string}>, res: Response)
 
     try {
       let Id = uid();
-      const { Title, Body ,Tags} = req.body;
+      const { Title, Body,Tags} = req.body;
       const { user_id } = req.params; 
 
       await DatabaseHelper.exec('addQuestion',{Id,user_id,Title,Body})
-       Tags.forEach(async (tag: { Tag_id: string; }) => {
-  
+
+       Tags.forEach(async (tag: {Tag_id:string; }) => {
       await DatabaseHelper.exec('addQuestionTag',{tag_id:tag.Tag_id,question_id:Id})
        });
   
@@ -44,7 +44,7 @@ export const addQuestion = async (req: Request<{user_id:string}>, res: Response)
   
   };
 
-  
+
 
 // //GET ALL QUESTION
 export const getQuestionsWithUserAndTags = async(req:Request,res:Response)=>{

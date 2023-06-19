@@ -5,10 +5,11 @@ import path from 'path'
 
 dotenv.config({path:path.resolve(__dirname,'../../.env')})
 
-interface decodedData{
+export interface decodedData{
     user_id:string
     user_name:string;
     user_email:string;
+    user_role:string
 }
 
 interface ExtendedRequest extends Request{

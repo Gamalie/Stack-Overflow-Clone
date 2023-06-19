@@ -2,6 +2,7 @@
 
 import { Request, RequestHandler, Response } from "express";
 
+
 export interface Users{
     User_id:number,
     Name:string,
@@ -14,20 +15,21 @@ export interface Users{
     Is_delete:number,
     Role:string,
 }
-
 export interface ExtendedRequest extends Request{
     body:{
         User_id:number,
         Name:string,
         Email:string,
         Password:string,
+        Role:string
     }
+
+    info?:decodedData,
     params: {
         User_id:string
     }
+    
 }
-
-
 
 
 export interface Questions{
@@ -55,11 +57,12 @@ export interface Answer{
 
 
 
-// export interface decodedData{
-//     user_id:string
-//     user_name:string;
-//     user_email:string;
-// }
+export interface decodedData{
+    user_id:string
+    user_name:string;
+    user_email:string;
+    user_role:string
+}
 
 // export interface Cart{
 //     count: number,
