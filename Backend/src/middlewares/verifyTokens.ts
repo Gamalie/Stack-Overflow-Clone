@@ -2,15 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import path from 'path'
+import { decodedData } from "../interface";
 
 dotenv.config({path:path.resolve(__dirname,'../../.env')})
 
-export interface decodedData{
-    user_id:string
-    user_name:string;
-    user_email:string;
-    user_role:string
-}
 
 interface ExtendedRequest extends Request{
     info?:decodedData
@@ -25,8 +20,9 @@ export const tokenVerification= (req:ExtendedRequest,res:Response,next:NextFunct
         }
         const decodedData=jwt.verify(token,process.env.SECRET_KEY as string) as decodedData
         req.info=decodedData
-
+        console.log(req.info);
         
+
     } catch (error:any) {
         return res.status(403).json({message:error.message})
         

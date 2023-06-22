@@ -47,7 +47,7 @@ export const addAnswer = async (req: Request<{user_id:string,question_id:string}
     try {
       const {question_id} = req.params; 
      let answer =  (await DatabaseHelper.exec('getAnswerByQuestionId',{question_id})).recordset
-      return res.status(201).json(answer);
+      return res.status(200).json(answer);
     } catch (error: any) {
       return res.status(500).json({message:error.message});
     }
@@ -55,13 +55,13 @@ export const addAnswer = async (req: Request<{user_id:string,question_id:string}
   };
 
 
-  //getAnswerByQuestionId
+  // acceptAnswerAsMostSuitable
 
 export const acceptAnswerAsMostSuitable = async (req:Request<{answer_id:string}>, res:Response) =>{
   try{
     const {answer_id} = req.params
     // let answer = 
-    await (DatabaseHelper.exec('acceptedAnswer ',{answer_id}))
+    await (DatabaseHelper.exec('acceptedAnswer',{answer_id}))
     return res.status(200).json({message:'Answer marked as most preferred'})
   }
   catch (error:any){

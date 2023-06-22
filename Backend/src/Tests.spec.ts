@@ -8,18 +8,35 @@ import { response } from 'express'
 // add user success
 describe('Add User',()=>{
 
-    it.skip('Should add a new user',()=>{
+    it('Should add a new user',()=>{
         return  request(app).post('/user').expect('Content-Type', /json/)
         .expect(201).
         send({
-            "Name": "Achieno",
-            "Email": "belinda@gmail.com",
+            "Name": "Ritah",
+            "Email": "rita@gmail.com",
             "Password": "Belinda@1"
 
         }).then((response:request.Response)=>{
             expect(response.body).toEqual(
                 expect.objectContaining({
                     message:expect.stringMatching('User registered successfully')
+                }))
+        })
+    })
+
+
+    it('Should login a user',()=>{
+        return  request(app).post('/user').expect('Content-Type', /json/)
+        .expect(200).
+        send({
+            // "Name": "Maria",
+            "Email": "rita@gmail.com",
+            "Password": "Belinda@1"
+
+        }).then((response:request.Response)=>{
+            expect(response.body).toEqual(
+                expect.objectContaining({
+                    message:expect.stringMatching('You have logged in successfully')
                 }))
         })
     })
@@ -53,7 +70,7 @@ describe('Add User',()=>{
 
     })
 
-    2.// Get all users in the system success
+    // Get all users in the system success
     it('should get all users from the system',()=>{
         return request(app).get('/user').expect('Content-Type',/json/).expect(200)
         .then((response:request.Response)=>{
@@ -76,7 +93,7 @@ describe('Add User',()=>{
         })
     })
 
-3.//GET ONE USER WITH UPDATE PROFILE
+//GET ONE USER WITH UPDATE PROFILE
     it('should get one users from the system with updated profile',()=>{
         return request(app).get('/user/a474a1fd-dc1f-46d8-ba42-e6ab067a8f3c').expect('Content-Type',/json/).expect(200).then((response:request.Response)=>{
             expect(response.body).toEqual(
@@ -159,7 +176,7 @@ describe('Add User',()=>{
 
     ///POST QUESTION
 
-    it.skip('Should add a question',()=>{
+    it('Should add a question',()=>{
         return  request(app).post('/question/9c62b68a-e42b-478e-88ba-49bb05e34a61').expect('Content-Type', /json/).set('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyX2lkIjoiOWM2MmI2OGEtZTQyYi00NzhlLTg4YmEtNDliYjA1ZTM0YTYxIiwiTmFtZSI6Ik11Y2hva2kiLCJFbWFpbCI6Im11Y2hva2llc3RoZXI4QGdtYWlsLmNvbSIsIlBpY3R1cmUiOm51bGwsIlVzZXJuYW1lIjpudWxsLCJUaXRsZSI6bnVsbCwiQWJvdXRfbWUiOm51bGwsImVtYWlsX3NlbnQiOjAsImlhdCI6MTY4NzM1MTQwOSwiZXhwIjoxNjg3NDIzNDA5fQ.fnSlOPdlF-Zerf8Xfrzq6wPcfDRfsORRbRRNQ_CFtS8').expect('Content-Type', /json/)
         .expect(201).send({
              "Title": "Does Cypress work on ...",
@@ -179,7 +196,7 @@ describe('Add User',()=>{
 
 
 /// CANNOT ADD QUESTION WITHOUT TOKEN
-    it('Should add a question',()=>{
+    it('Should not add a question',()=>{
         return  request(app).post('/question/2').expect('Content-Type', /json/)
         .expect(401).send({
              "Title": "Does Cypress work on ...",
@@ -264,7 +281,7 @@ describe('Add User',()=>{
 
     // CANNOT UPDATE QUESTIONS
 
-    it('Should update a question',()=>{
+    it('Should not update a question',()=>{
         return  request(app).put('/question/9c62b68a-e42b-478e-88ba-49bb05e34a61/90f5f50d-813b-4349-a3fa-8048306e79b8').expect('Content-Type', /json/).expect('Content-Type', /json/)
         .expect(401).send({
              "Title": "Does Cypress work on ...",
@@ -285,7 +302,7 @@ describe('Add User',()=>{
 
     // DELETE QUESTION SUCCESS
     it('Should delete a question',()=>{
-        return request(app).delete('/question/9c62b68a-e42b-478e-88ba-49bb05e34a61/90f5f50d-813b-4349-a3fa-8048306e79b8').expect('Content-Type',/json/).set('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyX2lkIjoiOWM2MmI2OGEtZTQyYi00NzhlLTg4YmEtNDliYjA1ZTM0YTYxIiwiTmFtZSI6Ik11Y2hva2kiLCJFbWFpbCI6Im11Y2hva2llc3RoZXI4QGdtYWlsLmNvbSIsIlBpY3R1cmUiOm51bGwsIlVzZXJuYW1lIjpudWxsLCJUaXRsZSI6bnVsbCwiQWJvdXRfbWUiOm51bGwsImVtYWlsX3NlbnQiOjAsImlhdCI6MTY4NzM1MTQwOSwiZXhwIjoxNjg3NDIzNDA5fQ.fnSlOPdlF-Zerf8Xfrzq6wPcfDRfsORRbRRNQ_CFtS8').expect('Content-Type', /json/).expect(200).then((response:request.Response)=>{
+        return request(app).delete('/question/9c62b68a-e42b-478e-88ba-49bb05e34a61/90f5f50d-813b-4349-a3fa-8048306e79b8').expect('Content-Type',/json/).set('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyX2lkIjoiOWM2MmI2OGEtZTQyYi00NzhlLTg4YmEtNDliYjA1ZTM0YTYxIiwiTmFtZSI6Ik11Y2hva2kiLCJFbWFpbCI6Im11Y2hva2llc3RoZXI4QGdtYWlsLmNvbSIsIlBpY3R1cmUiOm51bGwsIlVzZXJuYW1lIjpudWxsLCJUaXRsZSI6bnVsbCwiQWJvdXRfbWUiOm51bGwsImVtYWlsX3NlbnQiOjAsImlhdCI6MTY4NzM1MTQwOSwiZXhwIjoxNjg3NDIzNDA5fQ.fnSlOPdlF-Zerf8Xfrzq6wPcfDRfsORRbRRNQ_CFtS8').expect(200).then((response:request.Response)=>{
             expect(response.body).toEqual(
                 expect.objectContaining({message:'question deleted'})
             )  
@@ -293,7 +310,6 @@ describe('Add User',()=>{
     })
 
 
-    //DELETE QUESTION FAILURE
 
 
     // ADD ANSWER SUCCESS

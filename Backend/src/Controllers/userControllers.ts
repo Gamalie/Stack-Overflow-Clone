@@ -8,37 +8,9 @@ import {registrationSchema} from '../helpers/userValidation'
 import dotenv from 'dotenv'
 import path from 'path'
 import { DatabaseHelper} from '../dbHelpers/index'
-import { decodedData } from "../interface";
+import { ExtendedRequest, Users, decodedData } from "../interface";
 
 
-
-
-
-export interface Users{
-    User_id:number,
-    Name:string,
-    Email:string,
-    Password:string,
-    Picture:string,
-    Username:string,
-    Title:string,
-    About_me:string,
-    Is_delete:number,
-    Role:string,
-}
-
-export interface ExtendedRequest extends Request{
-    body:{
-        User_id:number,
-        Name:string,
-        Email:string,
-        Password:string,
-    }
-    params: {
-        User_id:string
-    }
-    info?:decodedData
-}
 
 dotenv.config({path:path.resolve(__dirname,'../../.env')})
 
@@ -46,23 +18,18 @@ dotenv.config({path:path.resolve(__dirname,'../../.env')})
 export const addUser= async (req:ExtendedRequest,res:Response)=>{
 
         try {
-            let User_id=uid()  //for generating unique id
-            const{Name, Email,Password}=req.body 
-            //for getting data from req.body
-    
-            //validation
+            let User_id=uid()  
+            const{Name, Email,Password}=req.body
             const {error}=registrationSchema.validate(req.body)
-            console.log(error) 
+            console.log(error)
+
             if(error){
                return res.status(4000).json(error.details[0].message)
             }
-    
             let hashedPassword = await bcrypt.hash(Password,10)
             
-            //connect to the database
             const pool= await mssql.connect(sqlConfig)
-    
-            //make a request
+
             await pool.request()
             .input("user_id",User_id)
             .input("user_name",Name)
@@ -80,16 +47,15 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
 
     export const getAllUser:RequestHandler= async (req,res)=>{
         try {
+            let PageNumber = 1
             const pool=await mssql.connect(sqlConfig)
-            let user:Users[] = await( await pool.request().execute('Get_All_Users')).recordset
-            res.status(200).json(user)
-            
+            let user:Users[] = await( await pool.request().input('PageNumber',PageNumber).execute('Get_All_Users')).recordset
+            res.status(200).json(user) 
         } catch (error:any) {
-            return res.status(500).json(error.message)
-    
-            
+            return res.status(500).json(error.message)   
         }
     }
+    
 
     export const getUserById=async(req:Request<{user_id:string}>,res:Response)=>{
         try {
@@ -103,7 +69,7 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
             if(user){
                  return res.status(200).json(user) 
             }
-            return res.status(404).json({message:"User Not Found"})
+            return res.status(404).json({message:"User not found"})
     
         } catch (error:any) {
              return res.status(500).json(error.message)
@@ -137,12 +103,14 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
                 return rest
     
             })
-            //token generation
+
             const token=jwt.sign(payload[0],process.env.SECRET_KEY as string, {expiresIn:'72000s'})
             
             const user_id=user[0].User_id
-            const role=user[0].Role
-            return res.json({message:"You have logged in successfully",token,user_id,role})
+            const user_role=user[0].Role
+           
+            
+            return res.json({message:"You have logged in successfully",token,user_id,user_role})
             
             
         } catch (error:any) {
@@ -155,10 +123,8 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
     try {
         const{Picture, Username,About_me,Email,Title}=req.body   
         const{user_id}=req.params
-        // console.log(User_id)
+       
         const pool =  await mssql.connect(sqlConfig)
-        console.log(req.body);
-
         let user:Users =(await  pool.request()
         .input("user_email",Email)
         .execute('getUserByEmail')).recordset[0]
@@ -175,10 +141,10 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
         .input('title',Title)
         .execute('updateProfile')
 
-        return res.status(201).json({message:"User updated successfully"})
+        return res.status(200).json({message:"User profile updated successfully"})
         
     } catch (error:any) {
-         //server side error
+       
          return res.status(500).json(error.message)
         
     }
@@ -219,23 +185,27 @@ export const resetPassword = async(req:Request,res:Response)=>{
    }
 
 
-   export const deleteUser=async (req:ExtendedRequest,res:Response)=>{
-
+  
+export const adminDeleteUser=async (req:ExtendedRequest,res:Response)=>{
     try {
-        if(req.info && req.info.user_role==='admin'){
+        console.log(req.info?.Role)
+        if(req.info && req.info.Role==='admin'){
         const{User_id}=req.params
-        // console.log({user_email})
+       
         const pool =  await mssql.connect(sqlConfig)
-        let user:Users []=(await  pool.request()
+        let user:Users[]=(await  pool.request()
         .input('user_id', User_id)
         .execute('deleteUser')).recordset
- 
+  
+        if(!user){
+          return res.status(404).json({message:'User already deleted'})
+        }
+  
         return res.status(200).json({message:"User deleted successfully"})}
   
     } catch (error:any) {
-        //server side error
+        
         return res.status(500).json(error.message)
         
     }
-
-}
+  }

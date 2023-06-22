@@ -3,29 +3,14 @@ import {Request,Response} from "express"
 import mssql from 'mssql'
 import {sqlConfig} from "../Config";
 import {v4 as uid} from 'uuid'
-import {Questions} from '../interface'
+import {ExtendedRequest, Questions} from '../interface'
 import { DatabaseHelper } from "../dbHelpers";
+import { log } from "console";
 
-interface decodedData{
-    user_id:string
-    user_name:string;
-    user_email:string;
-    user_role:string
-}
-interface ExtendedRequest extends Request{
-    body:{
-        Title:string
-        Body:string
-    }
-    info?:decodedData
-    params:{
-        Id:string
-       }
-}
+
 
 //ADD QUESTION
 export const addQuestion = async (req: Request<{user_id:string}>, res: Response) => {
-
     try {
       let Id = uid();
       const { Title, Body,Tags} = req.body;
@@ -64,7 +49,10 @@ export const getQuestionById = async (req: Request<{user_id:string}>, res: Respo
   try {
     const { user_id } = req.params; 
     let questions:Questions[]=(await DatabaseHelper.exec('getQuestionsByUserId',{user_id})).recordset[0]
-    return res.status(200).json(questions)
+    if(questions)
+    {return res.status(200).json(questions)}
+    return res.status(404).json({message:"Questions not found"})
+    
   } catch (error:any) {
       return res.status(500).json(error.message)
   }
@@ -86,6 +74,7 @@ export const goToOneQuestion = async (req: Request<{user_id:string,question_id:s
 //UPDATE A QUESTION
 export const updateQuestion = async (req: Request<{user_id:string,question_id:string}>, res: Response) => {
   try {
+
     const { user_id,question_id } = req.params;
     const {Title, Body,Tags} =req.body 
     await DatabaseHelper.exec('updateQuestion',{Title,Body,question_id,user_id})
@@ -102,8 +91,17 @@ export const updateQuestion = async (req: Request<{user_id:string,question_id:st
 //DELETE QUESTION
 export const deleteQuestion = async (req: Request<{user_id:string,question_id:string}>, res: Response) => {
   try {
-    const { user_id,question_id } = req.params;
+
+    const { user_id,question_id } = req.params; 
+    let questions:Questions[]=(await DatabaseHelper.exec('goToQuestion',{user_id,question_id})).recordset[0]
+ 
     await DatabaseHelper.exec('deleteQuestion',{question_id,user_id})
+
+    if(!questions){
+      return res.status(404).json({message:'Question already deleted'})
+    }
+
+
     return res.status(200).json({message:'question deleted'})
   }
 
@@ -112,3 +110,26 @@ export const deleteQuestion = async (req: Request<{user_id:string,question_id:st
 }
 }
 
+
+export const adminDeleteQuestion=async (req:ExtendedRequest,res:Response)=>{
+  try {
+      if(req.info && req.info.Role==='admin'){
+      const{Id}=req.params //Question Id
+     
+      const pool =  await mssql.connect(sqlConfig)
+      let question:Questions[]=(await  pool.request()
+      .input('question_id', Id)
+      .execute('adminDeleteQuestion')).recordset
+
+      if(!question){
+        return res.status(404).json({message:'Question already deleted'})
+      }
+
+      return res.status(200).json({message:"Question deleted successfully"})}
+
+  } catch (error:any) {
+      //server side error
+      return res.status(500).json(error.message)
+      
+  }
+}

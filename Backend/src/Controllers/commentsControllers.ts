@@ -9,7 +9,7 @@ export const addComments = async (req:Request<{answer_id:string}>,res:Response)=
     const {Body}= req.body
     try{
         await DatabaseHelper.exec('addComment',{Comment_id:comment_id,answer_id,Body})
-        return res.status(200).json({message:'Commented on this answer'})
+        return res.status(200).json({message:'You Commented on this answer'})
     }
     catch (error:any){
 
