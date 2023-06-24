@@ -11,43 +11,43 @@ export class UsersService {
 
  
 
-  Users:Users[]=[
-    {
-      UserId:1,
-      UserName:'user1',
-      Role:"admin",
-      Email:'user@1gmail.com',
-      Password:'132678'
-    },
-    {
-      UserId:2,
-      UserName:'user2',
-      Role:"user",
-      Email:'user@2gmail.com',
-      Password:'132678'
-    },
-    {
-      UserId:3,
-      UserName:'user3',
-      Role:"admin",
-      Email:'user@3gmail.com',
-      Password:'132678'
-    },
-    {
-      UserId:4,
-      UserName:'user4',
-      Role:"admin",
-      Email:'user@4gmail.com',
-      Password:'132678'
-    },
-    {
-      UserId:5,
-      UserName:'user5',
-      Role:"admin",
-      Email:'user@5gmail.com',
-      Password:'132678'
-    }
-  ]
+  // Users:Users[]=[
+  //   {
+  //     UserId:1,
+  //     UserName:'user1',
+  //     Role:"admin",
+  //     Email:'user@1gmail.com',
+  //     Password:'132678'
+  //   },
+  //   {
+  //     UserId:2,
+  //     UserName:'user2',
+  //     Role:"user",
+  //     Email:'user@2gmail.com',
+  //     Password:'132678'
+  //   },
+  //   {
+  //     UserId:3,
+  //     UserName:'user3',
+  //     Role:"admin",
+  //     Email:'user@3gmail.com',
+  //     Password:'132678'
+  //   },
+  //   {
+  //     UserId:4,
+  //     UserName:'user4',
+  //     Role:"admin",
+  //     Email:'user@4gmail.com',
+  //     Password:'132678'
+  //   },
+  //   {
+  //     UserId:5,
+  //     UserName:'user5',
+  //     Role:"admin",
+  //     Email:'user@5gmail.com',
+  //     Password:'132678'
+  //   }
+  // ]
 
   addUser(newUser:Newuser):Observable<AddedUserSuccess>{
     return this.http.post<AddedUserSuccess>('http://localhost:4000/user',newUser)
@@ -63,28 +63,33 @@ export class UsersService {
   user!:Users
   oneUser!:Users[]
 
-  registerUsers(users:Users):Observable<Users[]>{
-    this.Users.push(users)
-    return of(this.Users)
-  }
-
-  userLogIn(){
-
-  }
-
-  getAllUsers():Observable<Users[]>{
-    return of(this.Users)
-  }
-
-  getOneUser(id:number):Observable<Users>{
-    this.user=this.Users.find(user=>user.UserId===id) as Users
-     return of(this.user) 
-  }
- 
-  deleteOneUser(id:number):Observable<Users[]>{
-    let index=this.Users.indexOf(this.Users.find(user=>user.UserId===id) as Users)
-     let newUsers:Users[]=this.Users.splice(index,1) 
-     return of(newUsers) 
-  }
-
 }
+
+//   registerUsers(users:Users):Observable<Users[]>{
+//     this.Users.push(users)
+//     return of(this.Users)
+//   }
+
+//   userLogIn(){
+
+//   }
+
+//   getAllUsers():Observable<Users[]>{
+//     return of(this.Users)
+//   }
+
+//   getOneUser(id:number):Observable<Users>{
+//     this.user=this.Users.find(user=>user.UserId===id) as Users
+//      return of(this.user) 
+//   }
+ 
+//   deleteOneUser(id:number):Observable<Users[]>{
+//     let index=this.Users.indexOf(this.Users.find(user=>user.UserId===id) as Users)
+//      let newUsers:Users[]=this.Users.splice(index,1) 
+//      return of(newUsers) 
+//   }
+
+// }
+
+
+

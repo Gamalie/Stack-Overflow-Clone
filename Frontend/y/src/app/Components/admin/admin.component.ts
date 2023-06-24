@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Questions, Users } from 'src/app/Interface';
-import { QuestionsService } from 'src/app/Services/Questions/questions.service';
+// import { QuestionsService } from 'src/app/Services/Questions/questions.service';
 import { UsersService } from 'src/app/Services/Users/users.service';
 
 @Component({
@@ -14,13 +14,13 @@ import { UsersService } from 'src/app/Services/Users/users.service';
 })
 export class AdminComponent implements OnInit{
   
-  constructor(private questionService:QuestionsService,private userService:UsersService){}
+  // constructor(private questionService:QuestionsService,private userService:UsersService){}
 
   questions!:Questions[]
   users!:Observable<Users[]>
   ngOnInit(){
-    this.questions= this.questionService.Questions
-    this.users= this.userService.getAllUsers()
+    // this.questions= this.questionService.Questions
+    // this.users= this.userService.getAllUsers()
   }
 
   
