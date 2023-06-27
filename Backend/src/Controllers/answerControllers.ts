@@ -2,37 +2,22 @@ import {Request,Response} from "express"
 import mssql from 'mssql'
 import {sqlConfig} from "../Config";
 import {v4 as uid} from 'uuid'
-import {Answer} from '../interface'
+import {Answer, ExtendedRequest} from '../interface'
 import { DatabaseHelper } from "../dbHelpers";
 
-// interface decodedData{
-//     user_id:string
-//     user_name:string;
-//     user_email:string;
-//     user_role:string
-// }
-// interface ExtendedRequest extends Request{
-//     body:{
-//         Title:string
-//         Body:string
-//     }
-//     info?:decodedData
-//     params:{
-//         Id:string
-//        }
-// }
 
 
 // ADD ANSWER
-export const addAnswer = async (req: Request<{user_id:string,question_id:string}>, res: Response) => {
+export const addAnswer = async (req: ExtendedRequest, res: Response) => {
 
     try {
   
       let Answer_id = uid();
       const {Title, Body} = req.body;
-      const { user_id,question_id } = req.params; 
+      const User_id  = req.info?.User_id as string
+      const {Question_id} = req.params; 
 
-      await DatabaseHelper.exec('addAnswer',{Answer_id,user_id,question_id,Title,Body})
+      await DatabaseHelper.exec('addAnswer',{Answer_id,question_id:Question_id,Title,Body,user_id:User_id})
   
       return res.status(201).json({ message: "Your answer has been submitted" });
     } catch (error: any) {

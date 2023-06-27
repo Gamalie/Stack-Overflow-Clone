@@ -5,7 +5,7 @@ import { tokenVerification } from "../middlewares/verifyTokens";
 
 const answerRoute=Router()
 
-answerRoute.post('/:user_id/:question_id',tokenVerification,addAnswer)
+answerRoute.post('/:Question_id',tokenVerification,addAnswer)
 answerRoute.get('/:question_id',tokenVerification,getAnswerByQuestionId)
 answerRoute.put('/:answer_id',tokenVerification,acceptAnswerAsMostSuitable)
 answerRoute.put('/upvote/:answer_id',tokenVerification,upvoteAnswer)

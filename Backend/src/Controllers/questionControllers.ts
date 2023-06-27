@@ -10,21 +10,25 @@ import { log } from "console";
 
 
 //ADD QUESTION
-export const addQuestion = async (req: Request<{user_id:string}>, res: Response) => {
+export const addQuestion = async (req:ExtendedRequest, res: Response) => {
     try {
       let Id = uid();
       const { Title, Body,Tags} = req.body;
-      const { user_id } = req.params; 
+      const User_id  = req.info?.User_id as string
 
-      await DatabaseHelper.exec('addQuestion',{Id,user_id,Title,Body})
+      await DatabaseHelper.exec('addQuestion',{Id,User_id,Title,Body})
 
-       Tags.forEach(async (tag: {Tag_id:string; }) => {
-      await DatabaseHelper.exec('addQuestionTag',{tag_id:tag.Tag_id,question_id:Id})
+       Tags.forEach(async (tag) => {
+      const tag_id = uid()
+      await DatabaseHelper.exec('addTags',{tag_id:tag_id,tag_name:tag})
+      console.log(Id,tag_id);
+      
+      await DatabaseHelper.exec('addQuestionTag',{question_id:Id,tag_id:tag_id})
        });
   
       return res.status(201).json({ message: "Your question has been submitted" });
     } catch (error: any) {
-      return res.status(500).json({message:error.message});
+      return res.status(500).json(error.message);
     }
   
   };
@@ -45,10 +49,11 @@ export const getQuestionsWithUserAndTags = async(req:Request,res:Response)=>{
 
 
 //GET QUESTION BY USER ID
-export const getQuestionById = async (req: Request<{user_id:string}>, res: Response) => {
+export const getQuestionById = async (req:ExtendedRequest, res: Response) => {
   try {
-    const { user_id } = req.params; 
-    let questions:Questions[]=(await DatabaseHelper.exec('getQuestionsByUserId',{user_id})).recordset[0]
+    const  User_id  = req.info?.User_id as string; 
+    let questions:Questions[]=(await DatabaseHelper.exec('getQuestionsByUserId',{User_id})).recordset
+    console.log(questions)
     if(questions)
     {return res.status(200).json(questions)}
     return res.status(404).json({message:"Questions not found"})
@@ -60,10 +65,26 @@ export const getQuestionById = async (req: Request<{user_id:string}>, res: Respo
 
 
 //GO TO ONE QUESTION
-export const goToOneQuestion = async (req: Request<{user_id:string,question_id:string}>, res: Response) => {
+export const goToOwnQuestion = async (req: ExtendedRequest, res: Response) => {
   try {
-    const { user_id,question_id } = req.params; 
-    let questions:Questions[]=(await DatabaseHelper.exec('goToQuestion',{user_id,question_id})).recordset[0]
+    const User_id = req.info?.User_id as string
+    const { Id } = req.params 
+    console.log(Id)
+    let questions:Questions[]=(await DatabaseHelper.exec('goToQuestion',{User_id,question_id:Id})).recordset[0]
+    return res.status(200).json(questions)
+  } catch (error:any) {
+      return res.status(500).json(error.message)
+  }
+}
+
+
+//GoToOneQuestions
+
+export const goToQuestion = async (req:Request<{Id:string}>,res:Response)=>{
+  try {
+    const { Id } = req.params 
+    console.log(Id)
+    let questions:Questions[]=(await DatabaseHelper.exec('goToOneQuestion',{question_id:Id})).recordset[0]
     return res.status(200).json(questions)
   } catch (error:any) {
       return res.status(500).json(error.message)
@@ -72,14 +93,20 @@ export const goToOneQuestion = async (req: Request<{user_id:string,question_id:s
 
 
 //UPDATE A QUESTION
-export const updateQuestion = async (req: Request<{user_id:string,question_id:string}>, res: Response) => {
+export const updateQuestion = async (req: ExtendedRequest, res: Response) => {
   try {
 
-    const { user_id,question_id } = req.params;
+    const User_id = req.info?.User_id as string
+    const { Id } = req.params; 
     const {Title, Body,Tags} =req.body 
-    await DatabaseHelper.exec('updateQuestion',{Title,Body,question_id,user_id})
-    Tags.forEach(async (tag: { Tag_id: string; }) => {
-      await DatabaseHelper.exec('updateQuestionTag',{tag_id:tag.Tag_id,question_id:question_id})})
+    await DatabaseHelper.exec('updateQuestion',{Title,Body,question_id:Id,User_id})
+    Tags.forEach(async (tag) => {
+      const tag_id = uid()
+      await DatabaseHelper.exec('addTags',{tag_id:tag_id,tag_name:tag})
+      console.log(Id,tag_id);
+      
+      await DatabaseHelper.exec('addQuestionTag',{question_id:Id,tag_id:tag_id})
+       })
 
     return res.status(200).json({message:'Question updated'})
   } catch (error:any) {
@@ -89,13 +116,14 @@ export const updateQuestion = async (req: Request<{user_id:string,question_id:st
 
 
 //DELETE QUESTION
-export const deleteQuestion = async (req: Request<{user_id:string,question_id:string}>, res: Response) => {
+export const deleteQuestion = async (req:ExtendedRequest , res: Response) => {
   try {
 
-    const { user_id,question_id } = req.params; 
-    let questions:Questions[]=(await DatabaseHelper.exec('goToQuestion',{user_id,question_id})).recordset[0]
+    const User_id = req.info?.User_id as string
+    const {Id } = req.params; 
+    let questions:Questions[]=(await DatabaseHelper.exec('goToQuestion',{User_id,question_id:Id})).recordset[0]
  
-    await DatabaseHelper.exec('deleteQuestion',{question_id,user_id})
+    await DatabaseHelper.exec('deleteQuestion',{User_id,question_id:Id})
 
     if(!questions){
       return res.status(404).json({message:'Question already deleted'})

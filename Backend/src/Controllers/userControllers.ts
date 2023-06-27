@@ -95,8 +95,6 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
             let validPassword = await bcrypt.compare(Password,user[0].Password)
             if(!validPassword){
                 return res.status(404).json({message:"Wrong password"})
-    
-    
             }
             const payload=user.map(lUser=>{
                 const{Password,Is_delete,...rest}=lUser
@@ -190,7 +188,7 @@ export const adminDeleteUser=async (req:ExtendedRequest,res:Response)=>{
     try {
         console.log(req.info?.Role)
         if(req.info && req.info.Role==='admin'){
-        const{User_id}=req.params
+        const User_id =req.info?.User_id
        
         const pool =  await mssql.connect(sqlConfig)
         let user:Users[]=(await  pool.request()

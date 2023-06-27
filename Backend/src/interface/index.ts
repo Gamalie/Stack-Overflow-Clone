@@ -21,12 +21,15 @@ export interface ExtendedRequest extends Request{
         Name:string,
         Email:string,
         Password:string,
-        Role:string
+        Role:string,
+        Title:string,
+        Body:string,
+        Tags:string[]
     }
     info?:decodedData
     params: {
-        User_id:string,
-        Id:string
+        Id:string,
+        Question_id:string
     }
     
 }
@@ -42,9 +45,9 @@ export interface Questions{
 }
 
 export interface Tag{
-    TagBody:string
+    Tag_id: number
+    Tag_name: string
 }
-
 
 
 export interface Answer{
@@ -55,13 +58,17 @@ export interface Answer{
 }
 
 
-
-
 export interface decodedData{
     User_id:string
     Name:string;
-   Email:string;
+    Email:string;
     Role:string
 }
 
 
+export interface Comment{
+    Comments_id:string
+    Body:string
+    Is_deleted:string
+    Answer_id:string
+}
