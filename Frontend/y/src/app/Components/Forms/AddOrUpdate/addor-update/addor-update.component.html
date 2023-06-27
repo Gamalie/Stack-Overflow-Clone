@@ -15,28 +15,29 @@
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic consequuntur impedit nihil. Earum voluptas rem similique. Non vitae hic esse itaque voluptas eum, ipsum quidem in alias, maiores, nostrum commodi?
             </p>
         </div>
-        <div class="right">
+        <form class="right" (ngSubmit)="onSubmit(action)" [formGroup]="form">
             <div class="title">
                 <p>POST YOUR QUESTION HERE</p>
-                <input type="text" id="title" placeholder="Title">
+                <input type="text" id="title" placeholder="Title" formControlName="Title"  >
             </div>
             <div class="body">
-                <input type="text" id="body" placeholder="Body">
+                <input type="text" id="body" placeholder="Body"formControlName="Body" >
             </div>
                     <div class="tag-field">
-                        <input type="text" id="tags-field" placeholder="Tag">
-                        <button> Post</button>
+                        <input type="text" id="tags-field" placeholder="Tag" formControlName="Tags" >    
+                        <button> {{action}}</button>
                     </div>
-        </div>
+        </form>
     </div>
-    <div class="question">
+    <div class="user--question">
+    <div class="question" *ngFor="let U of (userQuestions | async)">
         <div class="statistics">
             <p> Vote</p>
             <p> Answers</p>
         </div>
         <div class="content" >
-          <h3>This is the title</h3>  
-            <p style="font-size:20px;">Body is body</p>
+          <h3 (click)="goToOneQuestion(U.Id)">{{U.Title}}</h3>  
+            <p style="font-size:20px;">{{U.Body}}</p>
             <div class="comment-field">
                 <p>Comment</p>
                 <input type="text" id="comment" style="width:80%; height:30px;">
@@ -46,12 +47,14 @@
                     <p id="tag">Python</p>
                     <p id="tag">Django</p>
                 </div>
-                <div class="username">
-                    <p>@CodeForLife</p>
-                </div>
+                <button [routerLink]= "['/addorupdate',U.Id]">UPDATE QUESTION</button>
+                
+                <button (click)="deleteQuestion(U.Id)">DELETE QUESTION</button>
+                
             </div>
         </div>
     </div>
+</div>
 
 </div>  
     

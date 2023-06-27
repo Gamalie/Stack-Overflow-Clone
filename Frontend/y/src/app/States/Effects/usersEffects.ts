@@ -21,6 +21,19 @@ export class UsersEffects{
             catchError(err=> of(UserAction.addUserFailure({failMess:err.message})))
             ))
             ))
+
+    logInUser$=createEffect(()=>
+        this.actions$.pipe(
+            ofType(UserAction.logInUser),
+            switchMap(action=>this.userService.logInUser(action.logInUser)
+            .pipe(
+                map(users=>{
+                    localStorage.setItem('token',users.token)
+                    return UserAction.logInUserSuccess({succMess:users.message})
+                }),
+                catchError(err=>of(UserAction.logInUserFailure({failMess:err.message})))
+            ))
+        ))
    
 
 

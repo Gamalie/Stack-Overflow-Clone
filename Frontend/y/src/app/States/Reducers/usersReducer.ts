@@ -7,13 +7,17 @@ export interface UserReducer{
     users:Users[]
     addUserSuccess:string
     addUserFailure:string
+    logInUserSuccess:string
+    logInUserFailure:string
 
 }
 
 const intialState:UserReducer ={
     users:[],
     addUserSuccess:'',
-    addUserFailure:''
+    addUserFailure:'',
+    logInUserSuccess:'',
+    logInUserFailure:''
 }
 
 export const getUserState = createFeatureSelector<UserReducer>('users')
@@ -34,6 +38,23 @@ export const userReducer = createReducer(
         ...state,
         addUserSuccess:'',
         addUserFailure:action.failMess,
-    }})
+    }}),
+
+    on(UserAction.logInUserSuccess,(state,action)=>{
+        return{
+            ...state,
+            logInUserSuccess:action.succMess,
+            logInUserFailure:''
+
+        }
+    }),
+
+    on(UserAction.logInUserFailure,(state,action)=>{
+        return{
+            ...state,
+            logInUserSuccess:'',
+            logInUserFailure:action.failMess
+        }
+    })
 
 )

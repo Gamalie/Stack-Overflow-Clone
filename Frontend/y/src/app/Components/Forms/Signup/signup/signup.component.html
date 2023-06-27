@@ -4,13 +4,13 @@
         <div class="signup1">
             <form (ngSubmit)="onSubmit()" [formGroup]="form">
                 <h4 class="title"> SIGN UP</h4>
-                <input type="text" name="fullname" placeholder="Enter Fullname" formControlName="user_name">
+                <input type="text" name="fullname" placeholder="Enter Fullname" formControlName="Name">
                 <p class="error" *ngIf="!form.get('fullname')?.valid && form.get('fullname')?.touched">*Full Name Required</p>
 
-                <input type="text" name="input" placeholder="Enter Email" formControlName="user_email">
+                <input type="text" name="input" placeholder="Enter Email" formControlName="Email">
                     <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Email Required</p>
 
-                <input type="password" name="input" placeholder="Enter Password" formControlName="user_password">
+                <input type="password" name="input" placeholder="Enter Password" formControlName="Password">
                     <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Password Required</p>
 
                 <button> Sign Up </button>
