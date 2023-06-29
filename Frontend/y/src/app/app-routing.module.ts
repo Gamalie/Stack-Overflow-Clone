@@ -9,6 +9,7 @@ import { AnswersComponent } from './Components/Answers/answers/answers.component
 import { UsersComponent } from './Components/Users/users/users.component';
 import { AdminComponent } from './Components/admin/admin.component';
 import { AdminUsersComponent } from './Components/admin/admin-users/admin-users.component';
+import { LandingPageComponent } from './Components/LandingPage/landing-page/landing-page.component';
 
 const routes: Routes = [
   {path:'signup',component:SignupComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'answerquestion',component:AnswersComponent},
   {path:'users',component:UsersComponent},
   {path:'qadmin',component:AdminComponent},
-  {path:'uadmin',component:AdminUsersComponent}
+  {path:'uadmin',component:AdminUsersComponent},
+  {path:'welcome',component:LandingPageComponent}
 ];
 
 @NgModule({

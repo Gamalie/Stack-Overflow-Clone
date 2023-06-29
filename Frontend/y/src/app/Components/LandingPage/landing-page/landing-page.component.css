@@ -1,0 +1,61 @@
+.conatiner{
+    width:100vw;
+    height:100vh;
+}
+.navbar{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom:1px rgb(206, 204, 204) solid;
+    border-top:1px rgb(206, 204, 204) solid;
+}
+
+.logo{
+    color:black;
+    font-size: 35px;
+    font-weight:bold;
+}
+
+.search-bar>input{
+  height:40px;
+  min-width:300px;
+  border:2px rgb(206, 204, 204) solid;
+  border-radius: 10px;
+}
+
+.profile{
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.main{
+    display:flex;
+    padding:10px;
+    gap:20px;
+}
+
+button{
+    background:#FC6611;
+    border:none;
+    padding:10px;
+    color:white;
+    font-weight: 550;
+    border-radius:10px;
+    
+}
+
+.welcome-note{
+    display:flex;
+}
+
+@media (max-width: 600px) {
+    .main{
+        display:flex;
+        flex-direction:column;
+    }
+    .sidebar{
+        width:250px;
+    }
+  }
