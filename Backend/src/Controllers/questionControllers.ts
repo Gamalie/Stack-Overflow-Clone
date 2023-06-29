@@ -70,7 +70,8 @@ export const goToOwnQuestion = async (req: ExtendedRequest, res: Response) => {
     const User_id = req.info?.User_id as string
     const { Id } = req.params 
     console.log(Id)
-    let questions:Questions[]=(await DatabaseHelper.exec('goToQuestion',{User_id,question_id:Id})).recordset[0]
+    let questions:Questions[]=await(await DatabaseHelper.exec('goToOneQuestion',{question_id:Id})).recordset[0]
+    console.log(questions)
     return res.status(200).json(questions)
   } catch (error:any) {
       return res.status(500).json(error.message)
@@ -145,13 +146,11 @@ export const adminDeleteQuestion=async (req:ExtendedRequest,res:Response)=>{
       const{Id}=req.params //Question Id
      
       const pool =  await mssql.connect(sqlConfig)
-      let question:Questions[]=(await  pool.request()
+      let question=(await  pool.request()
       .input('question_id', Id)
-      .execute('adminDeleteQuestion')).recordset
-
-      if(!question){
-        return res.status(404).json({message:'Question already deleted'})
-      }
+      .execute('adminDeleteQuestion'))
+      // console.log(question);
+      
 
       return res.status(200).json({message:"Question deleted successfully"})}
 

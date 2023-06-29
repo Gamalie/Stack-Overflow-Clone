@@ -30,6 +30,7 @@ export interface ExtendedRequest extends Request{
     params: {
         Id:string,
         Question_id:string
+        User_id:string
     }
     
 }
@@ -65,10 +66,10 @@ export interface decodedData{
     Role:string
 }
 
-
 export interface Comment{
     Comments_id:string
+    Answer_id:string
     Body:string
     Is_deleted:string
-    Answer_id:string
+   
 }

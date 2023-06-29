@@ -126,6 +126,7 @@ export const addUser= async (req:ExtendedRequest,res:Response)=>{
         let user:Users =(await  pool.request()
         .input("user_email",Email)
         .execute('getUserByEmail')).recordset[0]
+        console.log(user)
 
         if(!user){
             return res.status(404).json({message:"User Not Found"})
@@ -188,7 +189,7 @@ export const adminDeleteUser=async (req:ExtendedRequest,res:Response)=>{
     try {
         console.log(req.info?.Role)
         if(req.info && req.info.Role==='admin'){
-        const User_id =req.info?.User_id
+        const{User_id }=req.params
        
         const pool =  await mssql.connect(sqlConfig)
         let user:Users[]=(await  pool.request()
