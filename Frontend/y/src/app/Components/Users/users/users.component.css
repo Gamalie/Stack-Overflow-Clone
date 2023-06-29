@@ -5,32 +5,55 @@
 .navbar{
     display:flex;
     align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     border-bottom:1px rgb(206, 204, 204) solid;
-   border-top:1px rgb(206, 204, 204) solid;
+    border-top:1px rgb(206, 204, 204) solid;
 }
 
 .logo{
-    width:25%;
+    color:black;
+    font-size: 35px;
+    font-weight:bold;
 }
 
-.search-bar{
-    width:50%;
+.search-bar>input{
+  height:40px;
+  min-width:300px;
+  border:2px rgb(206, 204, 204) solid;
+  border-radius: 10px;
 }
+
 
 .main{
     display:flex;
     align-items:baseline;
     padding:10px;
-    /* justify-content: center; */
+    gap:20px;
+}
+
+.left{
+    display:flex;
+    flex-direction:column;
+    width:30%;
     gap:20px;
 }
 
 .sidebar{
-    width:30%;
     padding-left:10px;
     border-radius: 1rem;
     border:1px solid #FC6611;
-    height:90%;
+    height:70%;
+    box-shadow: 1px 2px 2px #FC6611 ;
+
+}
+
+.profile{
+    padding-left:10px;
+    border-radius: 1rem;
+    border:0.5px solid #FC6611;
+    height:70%;
+    box-shadow: 3px 2px 2px #FC6611 ;
 }
 
 .right{
@@ -40,7 +63,6 @@
     display:flex;
     gap:1rem;
     padding: 0.5rem;
-
 }
 
 .profile-pic{
@@ -51,6 +73,10 @@
 
 .details{
     width:100%
+}
+
+.user-details{
+    font-weight:520;
 }
 
 #pic,#username,#title{
@@ -77,4 +103,14 @@ button{
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+@media (max-width: 600px) {
+    .main{
+        display:flex;
+        flex-direction:column;
+    }
+    .sidebar,.profile{
+        width:250px;
+    }
+  }
 

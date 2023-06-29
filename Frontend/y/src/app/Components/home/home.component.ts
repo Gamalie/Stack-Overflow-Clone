@@ -4,6 +4,7 @@ import {Answer, Questions, Users} from '../../Interface'
 import { ActivatedRoute, Router } from '@angular/router';
 import {Store} from '@ngrx/store'
 import { Appstate } from 'src/app/States/appState';
+import {FormsModule} from '@angular/forms'
 import { getAllQuestions, getOneQuestion } from 'src/app/States/Reducers/questionReducer';
 import {getAQuestion, getAllQuestion} from 'src/app/States/Actions/questionActions'
 import { Observable } from 'rxjs';
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit{
   questions!:Observable<Questions[]>
   question!:Observable<Questions>
   quest_id=''
+  filteredQuestions:string =''
   constructor(private router:Router,private store:Store<Appstate>,private route:ActivatedRoute){
 
 }

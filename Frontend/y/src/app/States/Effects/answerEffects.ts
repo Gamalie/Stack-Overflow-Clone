@@ -3,13 +3,15 @@ import {Actions,createEffect, ofType} from '@ngrx/effects'
 import { AnswerServiceService } from 'src/app/Services/Answers/answer-service.service'
 import * as AnswerAction from '../Actions/answerActions'
 import {catchError, map, mergeMap, of,switchMap,tap} from 'rxjs'
+import { Appstate } from '../appState'
+import { Store } from '@ngrx/store'
 
 
 
 @Injectable()
 
 export class AnswerEffects{
-    constructor(private actions$:Actions, private answerService:AnswerServiceService){
+    constructor(private actions$:Actions, private answerService:AnswerServiceService,private store:Store<Appstate>){
 
     }
 
@@ -33,6 +35,7 @@ export class AnswerEffects{
             .pipe(
                 tap(s=>console.log(s)),
                 map(answer=>{
+                    console.log(answer)
                     return  AnswerAction.getAllAnswerSuccess({answer})
             }),
             catchError(err=> of(AnswerAction.fail({failMess:err.message})))
@@ -57,9 +60,9 @@ export class AnswerEffects{
         mergeMap(action=>this.answerService.upvoteAnswer(action.id).pipe(
             map(answer=>{
                 return AnswerAction.success({succMess:answer.message})
-            }),
-            catchError(err=> of(AnswerAction.fail({failMess:err.message})))
-        ))
+            }),catchError(err=> of(AnswerAction.fail({failMess:err.message})))
+        )),
+        // tap(action=>AnswerAction.getAllAnswers({id:action.qid})),
     ))
 
     downVoteAnswer$ = createEffect(()=>

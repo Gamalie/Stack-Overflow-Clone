@@ -1,0 +1,51 @@
+.conatiner{
+    width:100vw;
+    height:100vh;
+}
+.navbar{
+    display:flex;
+    align-items:center;
+    border-bottom:1px rgb(206, 204, 204) solid;
+   border-top:1px rgb(206, 204, 204) solid;
+}
+
+.logo{
+    width:30%;
+}
+
+.search-bar{
+    width:50%;
+}
+
+.left{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding:0.8rem;
+    width:20%;
+    border:1px solid #FC6611;
+    box-shadow: #bb5011; 
+}
+
+.main{
+    display:flex;
+    padding: 0.5rem 1rem; 
+}
+
+.right{
+    display:flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    padding-left:0.8rem;
+    width: 60%;
+    justify-content: space-evenly;
+     
+}
+
+.users{
+    display:flex;
+    justify-content: space-between;
+    border-top:1px rgb(206, 204, 204) solid;
+    align-items: center;
+
+}

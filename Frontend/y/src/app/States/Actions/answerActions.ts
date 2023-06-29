@@ -2,6 +2,7 @@ import {createAction,props} from '@ngrx/store'
 import {Answer} from '../../Interface'
 
 export const addAnswers = createAction('[AddAnswer]- AddAnswer',props<{id:string,answer:Answer}>())
+export const addAnswerSuccess = createAction('[AddAnswerSuccess]-AddAnswerSuccess',props<{answer:Answer[]}>())
 
 export const getAllAnswers = createAction('[getAnswers]-getAnswers',props<{id:string}>())
 export const getAllAnswerSuccess = createAction('[GetAllAnswerSuccess]-GetAllAnswerSuccess',props<{answer:Answer[]}>())

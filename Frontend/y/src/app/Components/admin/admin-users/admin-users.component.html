@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <h4>StackClone</h4>
+        </div>
+        <div class="search-bar">
+            <input type="search" placeholder="Search">
+        </div>
+        <div class="profile">
+            <p>Name</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="left" >
+            
+        </div>
+        
+    
+        <div class="right">
+            
+        <div class="users" *ngFor="let user of users | async ">
+            <div class="uname">
+                <p>{{user.Name}}</p>
+            </div>
+            
+            <div class="uemail">
+                <p>{{user.Email}}</p>
+            </div>
+
+            <div class="delete">
+                <button (click)="deleteUser(user.User_id)">Delete</button>
+            </div>
+
+            
+        
+            
+        </div>
+    </div>
+    </div>
+</div>

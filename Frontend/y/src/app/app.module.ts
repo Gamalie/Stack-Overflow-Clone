@@ -19,6 +19,15 @@ import { UsersEffects } from './States/Effects/usersEffects';
 import { userReducer } from './States/Reducers/usersReducer';
 import { questionReducer } from './States/Reducers/questionReducer';
 import { QuestionEffects } from './States/Effects/questionsEffect';
+import { commentReducer } from './States/Reducers/commentReducer';
+import { answerReducer } from './States/Reducers/answersReducer';
+import { AnswerEffects } from './States/Effects/answerEffects';
+import { CommentEffects } from './States/Effects/commentsEffects';
+import { AdminUsersComponent } from './Components/admin/admin-users/admin-users.component';
+import { FeedbackComponent } from './Components/Error Component/feedback/feedback.component';
+import { TransformPipePipe } from './Components/pipes/short/transform-pipe.pipe';
+import { TagsPipe } from './Components/pipes/tags.pipe';
+
 
 @NgModule({
   declarations: [
@@ -38,10 +47,15 @@ import { QuestionEffects } from './States/Effects/questionsEffect';
     AddorUpdateComponent,
     AnswersComponent,
     UsersComponent,
-    StoreModule.forRoot({user:userReducer,question:questionReducer}),
+    AdminUsersComponent,
+    FeedbackComponent,
+    TransformPipePipe,
+    TagsPipe,
+    // AdminComponent,
+    StoreModule.forRoot({users:userReducer,question:questionReducer,answer:answerReducer,comment:commentReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([UsersEffects,QuestionEffects])
-    // AdminComponent
+    EffectsModule.forRoot([UsersEffects,QuestionEffects,AnswerEffects,CommentEffects]),
+    
 
   ],
   providers: [],

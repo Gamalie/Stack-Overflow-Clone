@@ -34,8 +34,9 @@ export class QuestionEffects{
             ofType(QuestionAction.getAQuestion),
             mergeMap(action=>this.questionService.getToOneQuestion(action.id)
             .pipe(
-                tap(s=>console.log(s)),
+                // tap(s=>console.log(s)),
                 map(question=>{
+                    console.log(question)
                     return  QuestionAction.getOneQuestSuccess({question})
                 }),
                 catchError(err=> of(QuestionAction.getOneQuestFailure({failMess:err.message})))
@@ -52,7 +53,7 @@ export class QuestionEffects{
                     ofType(QuestionAction.getAQuestion),
                     mergeMap(action=>this.questionService.getOwnQuestion(action.id)
                     .pipe(
-                        tap(s=>console.log(s)),
+                        // tap(s=>console.log(s)),
                         map(question=>{
                             return  QuestionAction.getOneQuestSuccess({question})
                         }),
@@ -66,8 +67,8 @@ export class QuestionEffects{
                             mergeMap(action=>this.questionService.addQuestion(action.question)
                             .pipe(
                                 // tap(s=>console.log(s)
-                                map(question=>{
-                                    return  QuestionAction.addQuestionSuccess({succMess:question.message})
+                                map(succMess=>{
+                                    return  QuestionAction.addQuestionSuccess({succMess})
                                 }),
                                 catchError(err=> of(QuestionAction.getQuestFailure({failMess:err.message})))
                                 ))
@@ -79,8 +80,8 @@ export class QuestionEffects{
                     ofType(QuestionAction.updateQuestion),
                     mergeMap(action=>this.questionService.updateQuestion(action.id,action.question)
                     .pipe(
-                        map(products=>{
-                            return QuestionAction.updateQuestionSuccess({succMess:products.message})
+                        map(succMess=>{
+                            return QuestionAction.updateQuestionSuccess({succMess})
                         }),
                         catchError(err=> of(QuestionAction.updateQuestionFailure({failMess:err})))
                         )),
@@ -109,8 +110,8 @@ export class QuestionEffects{
                                     mergeMap(action=>this.questionService.deleteQuestion(action.id)
                                     .pipe(
                                         tap(s=>console.log(s)),
-                                        map(question=>{
-                                            return  QuestionAction.deleteQuestionSuccess({succMess:question.message})
+                                        map(succMess=>{
+                                            return  QuestionAction.deleteQuestionSuccess({succMess})
                                         }),
                                         catchError(err=> of(QuestionAction.getOneQuestFailure({failMess:err.message})))
                                         ))
@@ -119,13 +120,12 @@ export class QuestionEffects{
 
                                         deleteQuestionAdmin$ = createEffect(()=>
                                         this.actions$.pipe(
-                                            
-                                            ofType(QuestionAction.deleteQuestion),
+                                            ofType(QuestionAction.adminDeleteQuestion),
                                             mergeMap(action=>this.questionService.deleteQuestionAdmin(action.id)
                                             .pipe(
                                                 tap(s=>console.log(s)),
-                                                map(question=>{
-                                                    return  QuestionAction.deleteQuestionSuccess({succMess:question.message})
+                                                map(succMess=>{
+                                                    return  QuestionAction.deleteQuestionSuccess({succMess})
                                                 }),
                                                 catchError(err=> of(QuestionAction.getOneQuestFailure({failMess:err.message})))
                                                 ))

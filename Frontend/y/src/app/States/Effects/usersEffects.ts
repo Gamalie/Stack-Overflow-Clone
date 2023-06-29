@@ -34,7 +34,53 @@ export class UsersEffects{
                 catchError(err=>of(UserAction.logInUserFailure({failMess:err.message})))
             ))
         ))
-   
+
+    
+    updateProfile$ =createEffect(()=>
+    this.actions$.pipe(
+        ofType(UserAction.updateProfile),
+        mergeMap(action=>this.userService.updateUser(action.id,action.userProfile).
+        pipe(
+            map(users=>{
+                return UserAction.updateUserSuccess({succMess:users.message})
+            }),
+            catchError(err=> of(UserAction.updateUserFailure({failMess:err.message})))
+        ))
+    ))
+
+    
+   getAllUsers$ = createEffect(()=>
+   this.actions$.pipe(
+    ofType(UserAction.getAllUsers),
+    mergeMap(action=>this.userService.getAllUsers()
+    .pipe(
+        map(users=>{
+            return UserAction.getUserSuccess({users})
+        }),
+        catchError(err=> of(UserAction.getUserFailure({failMess:err.message})))
+    ))
+   ))
+
+
+
+   deleteUser$ = createEffect(()=>
+   this.actions$.pipe(
+    ofType(UserAction.deleteUser),
+    mergeMap(action=>this.userService.deleteUsers(action.id)
+    .pipe(
+        map(
+            users=>{
+            console.log(users)
+            return UserAction.deleteUserSucc({succMess:users.message})
+        },
+        (err:any) => console.log(err)),
+        catchError(err=> {
+            console.log(err);
+            
+            return of(UserAction.deleteUserFail({failMess:err.message}))
+        })
+    ))
+   ))
 
 
 

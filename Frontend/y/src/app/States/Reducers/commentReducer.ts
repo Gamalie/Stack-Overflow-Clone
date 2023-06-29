@@ -20,7 +20,7 @@ const initialState:CommentReducer={
 }
 
 export const getCommentState = createFeatureSelector<CommentReducer>('comment')
-export const getComment = createSelector(getCommentState,(state)=>state.comments)
+export const getComments = createSelector(getCommentState,(state)=>state.comments)
 export const getCommentError = createSelector(getCommentState,(state)=>state.fail)
 
 
@@ -43,7 +43,7 @@ export const commentReducer = createReducer(
     on(CommentAction.getCommentSucc,(state,action)=>{
         return{
             ...state,
-            getCommentSucc:action.comment,
+            comments:action.comment,
             fail:''
         }}),
     

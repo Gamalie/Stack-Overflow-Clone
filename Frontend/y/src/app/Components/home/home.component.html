@@ -4,7 +4,7 @@
             <h4>StackClone</h4>
         </div>
         <div class="search-bar">
-            <input type="search" placeholder="Search">
+            <input type="search" placeholder="Search" >
         </div>
         <div class="profile">
             <p>Name</p>
@@ -21,15 +21,14 @@
         
             <div class="content" >
               <h3 (click)="goToOneQuestion(question.Id)">{{question.Title}}</h3>  
-                <p style="font-size:20px;">{{question.Body}}</p>
-                <div class="comment-field">
+                <p style="font-size:15px;">{{question.Body}}</p>
+                <!-- <div class="comment-field">
                     <p>Comment</p>
                     <input type="text" id="comment" style="width:80%; height:30px;">
-                </div>
+                </div> -->
                 <div class="tags-and-username">
                     <div class="tag" >
                         <p id="tag">{{question.Tags}}</p>
-                        <p id="tag"></p>
                     </div>
                     <div class="username">
                         <p>@CodeForLife</p>

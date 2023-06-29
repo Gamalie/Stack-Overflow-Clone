@@ -1,0 +1,24 @@
+.error{
+    padding-left:10px;
+    border-radius: 1rem;
+    width:10rem;
+    border:1px solid #c0bfbe;
+    height:100%;
+    width:100%;
+    z-index:1;
+    position:fixed;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inside-error{
+    /* background: #000; */
+    border:1px solid #FC6611;
+    background: gray;
+    color:white;
+
+}

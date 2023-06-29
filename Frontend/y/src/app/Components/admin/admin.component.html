@@ -1,4 +1,4 @@
-<!-- <div class="container">
+ <div class="container">
     <div class="navbar">
         <div class="logo">
             <h4>StackClone</h4>
@@ -11,46 +11,31 @@
         </div>
     </div>
     <div class="main">
-        <div class="left">
-        <div class="question" *ngFor="let question of questions" >
-            <div class="statistics">
-                <p >{{question.Vote}} Vote</p>
-                <p>{{question.Answers}} Answers</p>
-            </div>
-            <div class="content">
-              <h3>{{question.Title}}</h3>  
-                <p style="font-size:20px;">{{question.Body}}</p> -->
-                <!-- this was commented<div class="comment-field">
-                    <p>Comment</p>
-                    <input type="text" id="comment" style="width:80%; height:30px;">
-                </div> -->
-                <!-- <div class="tags-and-username"> -->
-                    <!-- this was commented<div class="tag">
-                        <p id="tag">{{question.Tag[0].TagBody}}</p>
-                        <p id="tag">{{question.Tag[1].TagBody}}</p>
-                    </div> -->
-                    <!-- <div class="username">
+        <div class="left" >
+            
+    </div>
+
+    <div class="right">
+        <div class="question" *ngFor="let question of questions | async" >
+        
+            <div class="content" >
+              <h3 (click)="goToOneQuestion(question.Id)">{{question.Title}}</h3>  
+                <p style="font-size:20px;">{{question.Body}}</p>
+                <div class="tags-and-username">
+                    <div class="tag" >
+                        <p id="tag">{{question.Tags}}</p>
+                        <p id="tag"></p>
+                    </div>
+                    <div class="username">
                         <p>@CodeForLife</p>
+                    </div>
+                    <div>
+                        <button (click)="deleteQuestion(question.Id)"> Delete Question</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="right">
-        <div class="top"> -->
-            <!-- this was commented <div class="heading">
-                <h4>Users</h4>
-            </div> -->
-            <!-- <div class="subheading">
-                <h3>Username</h3>
-                <h3>Emails</h3>
-            </div>
-        </div>
-        <div class="users" *ngFor="let user of users | async ">
-            <p>{{user.UserName}}</p>
-            <p>{{user.Email}}</p>
-        </div>
+        
     </div>
 </div>
-</div> -->
+</div> 

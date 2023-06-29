@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Users, Questions, Answer, AddedQuestionSuccess, UpdateQuestionSuccess, DeletedQuestionSuccess } from 'src/app/Interface';
+import { Users, Questions, Answer, AddedQuestionSuccess, UpdateQuestionSuccess, DeletedQuestionSuccess} from 'src/app/Interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +27,11 @@ QuestionsService {
   }
 
   getToOneQuestion(questId:string):Observable<Questions>{
-    
     return this.http.get<Questions>(`http://localhost:4000/question/onequest/${questId}`,{headers: new HttpHeaders().set('token',this.token)})
   }
 
   getOwnQuestion(questId:string):Observable<Questions>{
-    return this.http.get<Questions>(`http://localhost:4000/question/quest/${questId}`,{headers: new HttpHeaders().set('token',this.token)})
+    return this.http.get<Questions>(`http://localhost:4000/question/onequest/${questId}`,{headers: new HttpHeaders().set('token',this.token)})
   }
 
   getQuestionByUserId():Observable<Questions[]>{
@@ -50,6 +49,7 @@ QuestionsService {
   }
 
   deleteQuestionAdmin(question_id:string):Observable<DeletedQuestionSuccess>{
+    console.log('admin delete')
     return this.http.delete<DeletedQuestionSuccess>(`http://localhost:4000/question/admin/${question_id}`,{headers: new HttpHeaders().set('token',this.token)})
   }
 }

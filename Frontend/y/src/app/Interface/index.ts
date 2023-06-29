@@ -2,7 +2,7 @@ import { Request, RequestHandler, Response } from "express";
 
 
 export interface Users{
-    User_id:number,
+    User_id:string,
     Name:string,
     Email:string,
     Password:string,
@@ -38,7 +38,8 @@ export interface ExtendedRequest extends Request{
     info?:decodedData
     params: {
         User_id:string,
-        Id:string
+        Id:string,
+    
     }
     
 }
@@ -61,10 +62,12 @@ export interface Tag{
 
 
 export interface Answer{
-    QuestionId:number,
-    AnswerId:number,
+    QuestionId:string,
+    Answer_id:string,
     Body:string,
-    Vote:number
+    Votes:number,
+    Title:string
+
 }
 
 
@@ -98,10 +101,21 @@ export interface UpdateQuestionSuccess{
     message:string
 }
 
+export interface UpdateProfileSuccess{
+    message:string
+}
+
 export interface AddedUserSuccess{
     message:string
 }
 
+export interface DeleteUserSuccess{
+    message:string
+}
+
+export interface DeletedQuestionSuccess{
+    message:string
+}
 
 export interface AcceptsAnswerSuccess{
     message:string
@@ -129,7 +143,7 @@ export interface UserProfile{
     About_me:string
 }
 
-export interface DeletedQuestionSuccess{
+export interface c{
     message:string
 }
 

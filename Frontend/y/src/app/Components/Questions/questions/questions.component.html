@@ -22,23 +22,61 @@
               <h3>{{quest.Title}}</h3> 
                 <p style="font-size:20px;">{{quest.Body}}</p>
                 <div class="answers">
-                    <div class="answer-votes">
-                        <p>up</p>
-                        <p>7</p>
-                        <p>down</p>
-                    </div>
                     <div class ="All-answers" >
-                    <div class="answer" >
-                        <h3>Answers</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, fugiat!</p>
+                    <div class="answer" *ngFor="let ans of answer">
+                   
+                            <div class="ans">
+                                <div class="answer-votes">
+                                    <p (click)="upvoteAnswer(ans.Answer_id)">up</p>
+                                    <p>{{ans.Votes}}</p>
+                                    <p (click)="downvoteAnswer(ans.Answer_id)">down</p>
+                                </div>
+                                
+                                <div>
+                                <h2>{{ans.Title}}</h2>
+                                <p>{{ans.Body}}</p>
+                                </div>
 
+                                
+                            </div>
+                            <!-- <form  id=  "form" [formGroup]="form1"> -->
+                                <div class="comment-field">
+                                    <form  id= "form" (ngSubmit)="addComment(ans.Answer_id)" [formGroup]="form1">
+                                        <h4 class="title">Comment</h4>
+                                            <input  type="text" name="input" style="width:80%; height:30px;" placeholder="Enter Your Comment" formControlName="Body" >
+                                            <!-- <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Email Required</p> -->
+                                            <!-- <button >Add Answer</button> -->
+                                            <button type="submit"> Add Comment</button>
+                                    </form>
+                                   
+                                </div>
+                            <!-- </form> -->
+
+                    <button (click)="getComment(ans.Answer_id)">Show Comment</button>
+                    <div class="Comments" *ngFor="let comm of comments |async">
+                        <p>{{comm.Body}}</p>
+            
                     </div>
+                        
+                        
+                    </div>
+                       <div class="answer-question">
+                        <form  id=  "form" (ngSubmit)="onSubmit()" [formGroup]="form">
+                            <h4 class="title"> Answer Question</h4>
+                            <input  type="text" name="input" style="width:80%; height:30px;" placeholder="Enter Title of Your Answer" formControlName="Title">
+                                <!-- <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Email Required</p> -->
+                                <input  type="text" name="input" style="width:80%; height:30px;" placeholder="Enter Your Answer" formControlName="Body" >
+                                <!-- <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Email Required</p> -->
+                                <button >Add Answer</button>
+                                                               
+                        </form>
+                    </div>
+                    
                 </div>
                 </div>
-                <div class="comment-field">
-                    <p>Comment</p>
-                    <input type="text" id="comment" style="width:80%; height:30px;">
-                </div>
+                
+                
+                
                 <div class="tags-and-username">
                     <div class="tag">
                         <p id="tag">Tag1</p>

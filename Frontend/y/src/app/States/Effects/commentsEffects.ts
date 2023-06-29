@@ -17,6 +17,7 @@ export class CommentEffects{
         ofType(CommentAction.addComment),
         mergeMap(action=>this.commentService.addComment(action.id,action.comment).pipe(
             map(comment=>{
+                console.log('one commment')
                 return CommentAction.success({succMess:comment.message})
             }),
             catchError(err=> of(CommentAction.fail({failMess:err.message})))
@@ -24,9 +25,11 @@ export class CommentEffects{
 
     getComments$ = createEffect(()=>
             this.actions$.pipe(
-                ofType(CommentAction.addComment),
+                ofType(CommentAction.getComment),
                 mergeMap(action=>this.commentService.getComment(action.id).pipe(
                     map(comment=>{
+                        console.log(comment);
+                        
                         return CommentAction.getCommentSucc({comment})
                     }),
                     catchError(err=> of(CommentAction.fail({failMess:err.message})))

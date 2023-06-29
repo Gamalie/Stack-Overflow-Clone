@@ -8,16 +8,18 @@ export interface AnswerReducer{
     answer:Answer,
     getAllAnswerSuccess:Answer[],
     success:string,
-    fail:string
+    fail:string,
+    // addAnswerSuccess:Answer[]
 }
 
 const initialState:AnswerReducer={
     answers:[],
     answer:{
-        QuestionId:0,
-        AnswerId:0,
+        QuestionId:'',
+        Answer_id:'',
         Body:'',
-        Vote:0
+        Votes:0,
+        Title:''
     },
     getAllAnswerSuccess:[],
     success:'',
@@ -52,7 +54,7 @@ export const answerReducer = createReducer(
         on(AnswerAction.getAllAnswerSuccess,(state,action):AnswerReducer=>{
             return {
                 ...state,
-                getAllAnswerSuccess:action.answer,
+                answers:action.answer,
                 fail:''
             }}
         ),
@@ -62,7 +64,14 @@ export const answerReducer = createReducer(
                 success:'',
                 fail:action.failMess
             }}
-        )
+        ),
+        on(AnswerAction.success,(state,action):AnswerReducer=>{ //success for add ,markedaspreferred,upvote and downvote
+            return {
+                ...state,
+                success:action.succMess,
+                fail:''
+            }}
+        ),
 
 
 

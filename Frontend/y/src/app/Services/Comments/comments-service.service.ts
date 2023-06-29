@@ -12,8 +12,8 @@ export class CommentsServiceService {
   constructor(private router:Router, private http:HttpClient) { }
 
 addComment(id:string,comment:Comment):Observable<AddedCommentSuccess>{
+  console.log(comment);
   return this.http.post<AddedCommentSuccess>(`http://localhost:4000/comment/${id}`,comment,{headers: new HttpHeaders().set('token',this.token)})
-
 }
 
 getComment(id:string):Observable<Comment[]>{

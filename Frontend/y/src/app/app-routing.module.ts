@@ -8,6 +8,7 @@ import { AddorUpdateComponent } from './Components/Forms/AddOrUpdate/addor-updat
 import { AnswersComponent } from './Components/Answers/answers/answers.component';
 import { UsersComponent } from './Components/Users/users/users.component';
 import { AdminComponent } from './Components/admin/admin.component';
+import { AdminUsersComponent } from './Components/admin/admin-users/admin-users.component';
 
 const routes: Routes = [
   {path:'signup',component:SignupComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path:'addorupdate/:Id',component:AddorUpdateComponent},
   {path:'answerquestion',component:AnswersComponent},
   {path:'users',component:UsersComponent},
-  {path:'admin',component:AdminComponent}
+  {path:'qadmin',component:AdminComponent},
+  {path:'uadmin',component:AdminUsersComponent}
 ];
 
 @NgModule({

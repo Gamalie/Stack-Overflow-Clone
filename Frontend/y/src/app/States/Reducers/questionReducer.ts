@@ -1,5 +1,5 @@
 import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store'
-import {Questions} from 'src/app/Interface'
+import {AddedQuestionSuccess, DeleteUserSuccess, DeletedQuestionSuccess, Questions, UpdateQuestionSuccess} from 'src/app/Interface'
 import * as QuestionAction from '../Actions/questionActions'
 
 
@@ -11,12 +11,12 @@ export interface QuestionReducer{
     getQuestionSucc:string
     getQuestionFail:string,
     addQuestionFail:string,
-    addQuestionSucc:string,
+    addQuestionSucc:AddedQuestionSuccess,
     getQuestByUserSucc:Questions[],
     getQuestByUserFail:string,
-    updateQuestionSuccess:string,
+    updateQuestionSuccess:UpdateQuestionSuccess,
     updateQuestionFailure:string,
-    deleteQuestionSuccess:string,
+    deleteQuestionSuccess:DeletedQuestionSuccess,
     deleteQuestionFail:string
 
 }
@@ -36,12 +36,12 @@ const initialState:QuestionReducer = {
     getQuestionSucc:'',
     getQuestionFail:'',
     addQuestionFail:'',
-    addQuestionSucc:'',
+    addQuestionSucc:{message:''},
     getQuestByUserSucc:[],
     getQuestByUserFail:'',
-    updateQuestionSuccess:'',
+    updateQuestionSuccess:{message:''},
     updateQuestionFailure:'',
-    deleteQuestionSuccess:'',
+    deleteQuestionSuccess:{message:''},
     deleteQuestionFail:''
 }
 
@@ -52,6 +52,9 @@ export const getAllUserQuestions = createSelector(getQuestionState,(state)=>stat
 export const getOneQuestion = createSelector(getQuestionState,(state)=>state.question)
 export const getUserQuestions = createSelector(getQuestionState,(state)=>state.questions)
 export const getQuestionsError = createSelector(getQuestionState,(state)=>state.getQuestionFail)
+export const deleteQuestionSuccessfully = createSelector(getQuestionState,(state)=>state.deleteQuestionSuccess)
+export const updatedQuestionSuccessfully = createSelector(getQuestionState,(state)=>state.updateQuestionSuccess)
+export const addedQuestionSuccessfully = createSelector(getQuestionState,(state)=>state.addQuestionSucc)
 export const questionReducer = createReducer(
             initialState,
             on(QuestionAction.getQuestSuccess,(state,action):QuestionReducer=>{
@@ -69,7 +72,7 @@ export const questionReducer = createReducer(
                 }
             }),
             on(QuestionAction.getOneQuestSuccess,(state,action)=>{
-                console.log('state')
+                //console.log('state')
                 return{
                     ...state,
                     question:action.question,
@@ -94,7 +97,7 @@ export const questionReducer = createReducer(
             on(QuestionAction.addQuestionFailure,(state,action):QuestionReducer=>{
             return {
                 ...state,
-                addQuestionSucc:'',
+                addQuestionSucc:{message:''},
                 addQuestionFail:action.failMess,
             }}),
             on(QuestionAction.getUserQuestSuccess,(state,action):QuestionReducer=>{
@@ -121,21 +124,22 @@ export const questionReducer = createReducer(
             on(QuestionAction.updateQuestionFailure,(state,action)=>{
                 return{
                     ...state,
-                    updateQuestionSuccess:'',
+                    updateQuestionSuccess:{message:''},
                     updateQuestionFailure:action.failMess
                 }
             }),
             on(QuestionAction.deleteQuestionSuccess,(state,action):QuestionReducer=>{
                 return{
                     ...state,
+                    questions:state.questions,
                     deleteQuestionSuccess:action.succMess,
                     deleteQuestionFail:''
                 }
             }),
-            on(QuestionAction.deleteQuestionFail,(state,action)=>{
+            on(QuestionAction.deleteQuestionFail,(state,action):QuestionReducer=>{
                 return{
                     ...state,
-                    deleteQuestionSuccess:'',
+                    deleteQuestionSuccess:{message:''},
                     deleteQuestionFail:action.failMess
                 }
             }),

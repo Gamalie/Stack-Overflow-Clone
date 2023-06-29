@@ -8,7 +8,13 @@ export interface UserReducer{
     addUserSuccess:string
     addUserFailure:string
     logInUserSuccess:string
-    logInUserFailure:string
+    logInUserFailure:string,
+    getUserSuccess:Users[]
+    getUserFailure:string
+    updateUserSuccess:string
+    updateUserFailure:string,
+    deleteUserSucc:string
+    deleteUserFail:string
 
 }
 
@@ -17,11 +23,18 @@ const intialState:UserReducer ={
     addUserSuccess:'',
     addUserFailure:'',
     logInUserSuccess:'',
-    logInUserFailure:''
+    logInUserFailure:'',
+    getUserSuccess:[],
+    getUserFailure:'',
+    updateUserSuccess:'',
+    updateUserFailure:'',
+    deleteUserSucc:'',
+    deleteUserFail:''
 }
 
 export const getUserState = createFeatureSelector<UserReducer>('users')
 export const addError = createSelector(getUserState,(state)=>state.addUserFailure)
+export const getAllUser = createSelector(getUserState,(state)=>state.users)
 export const userReducer = createReducer(
     intialState,
 
@@ -54,6 +67,48 @@ export const userReducer = createReducer(
             ...state,
             logInUserSuccess:'',
             logInUserFailure:action.failMess
+        }
+    }),
+    on(UserAction.getUserSuccess,(state,action)=>{
+        return{
+            ...state,
+            users:action.users,
+            getUserFailure:''
+
+        } }),
+    on(UserAction.getUserFailure,(state,action)=>{
+        return{
+            ...state,
+            getUserSuccess:[],
+            getUserFailure:action.failMess
+        }}),
+
+    on(UserAction.updateUserSuccess,(state,action)=>{
+        return{
+            ...state,
+            updateUserSuccess:action.succMess,
+            updateUserFailure:''
+        }
+    }),
+    on(UserAction.updateUserFailure,(state,action)=>{
+        return{
+            ...state,
+            updateUserSuccess:'',
+            updateUserFailure:action.failMess
+        }
+    }),
+    on(UserAction.deleteUserSucc,(state,action)=>{
+        return{
+            ...state,
+            deleteUserSucc:action.succMess,
+            deleteUserFail:''
+        }
+    }),
+    on(UserAction.deleteUserFail,(state,action)=>{
+        return{
+            ...state,
+            deleteUserSucc:'',
+            deleteUserFail:action.failMess
         }
     })
 

@@ -23,17 +23,17 @@ export class AnswerServiceService {
 
 
   markAccepted(id:string):Observable<AcceptsAnswerSuccess>{
-    return this.http.put<AcceptsAnswerSuccess>(`http://localhost:4000/answer/${id}`,{headers: new HttpHeaders().set('token',this.token)})
+    return this.http.put<AcceptsAnswerSuccess>(`http://localhost:4000/answer/${id}`,{},{headers: new HttpHeaders().set('token',this.token)})
 
   }
 
   upvoteAnswer(id:string):Observable<UpvoteAnswerSuccess>{
-    return this.http.put<UpvoteAnswerSuccess>(`http://localhost:4000/answer/upvote/${id}`,{headers: new HttpHeaders().set('token',this.token)})
+    return this.http.put<UpvoteAnswerSuccess>(`http://localhost:4000/answer/upvote/${id}`,{},{headers: new HttpHeaders().set('token',this.token)})
 
   }
 
   downvoteAnswer(id:string):Observable<DownvoteAnswerSuccess>{
-    return this.http.put<DownvoteAnswerSuccess>(`http://localhost:4000/answer/downvote/${id}`,{headers: new HttpHeaders().set('token',this.token)})
+    return this.http.put<DownvoteAnswerSuccess>(`http://localhost:4000/answer/downvote/${id}`,{},{headers: new HttpHeaders().set('token',this.token)})
 
   }
 }
