@@ -36,4 +36,9 @@ export class AdminUsersComponent implements OnInit{
     console.log('now')
   }
 
+  addOrUpdate(){
+    this.router.navigate(['/addorupdate'])
+  }
+  
+
 }

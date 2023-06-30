@@ -5,18 +5,24 @@
 .navbar{
     display:flex;
     align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     border-bottom:1px rgb(206, 204, 204) solid;
-   border-top:1px rgb(206, 204, 204) solid;
+    border-top:1px rgb(206, 204, 204) solid;
 }
 
 .logo{
-    width:25%;
+    color:black;
+    font-size: 25px;
+    font-weight:bold;
 }
 
-.search-bar{
-    width:50%;
-}
-
+.search-bar>input{
+    height:40px;
+    min-width:300px;
+    border:2px rgb(206, 204, 204) solid;
+    border-radius: 10px;
+  }
 .main{
     display:flex;
     align-items:baseline;
@@ -25,12 +31,25 @@
 }
 
 .sidebar{
-    width:30%;
+    display:block;
     padding-left:10px;
-    border-radius: 1rem;
-    border:1px solid #FC6611;
-    height:90%;
+    border-radius:0.5rem;
+    width:15rem;
+    border:1px solid #f3b38f;
+    height:70%;
+    color:blue;
 }
+
+.sidebar>p{
+    background:rgb(243, 245, 245);
+    padding-right:10px;
+    padding-left:5px;
+    height:30px;
+    display:flex;
+    align-content:center;
+    padding-top:10px;
+}
+
 
 .right{
     width:65%;
@@ -43,6 +62,8 @@
     padding-left: 5px;
     padding-right: 10px;
     width:100%;  
+    box-shadow:3px 2px 2px rgb(206, 204, 204) 
+     
 }
 
 .statistics{
@@ -53,6 +74,7 @@
     justify-content: center;
     font-size:small;
     font-weight:bold;
+    height:80%;
 }
 
 .content{
@@ -66,8 +88,55 @@
 .comment-field{
     display:flex;
     gap:20px;
-    align-items: baseline;
+    justify-content: center;
+    flex-direction: column;
+    
 }
+
+.comment-field>form{
+    display:flex;
+    justify-content: center;
+    width:100%;
+
+    /* align-items: center; */
+
+}
+
+.comment-field>form>input{
+    border-radius: 5px;
+    border:none;
+    box-shadow:1px 1px 1px rgb(206, 204, 204) 
+
+
+}
+
+button{
+    padding:5px;
+    background-color:#f3b38f;
+    border:none;
+    color:white;
+    font-size: 550;
+    border-radius: 5px;
+
+}
+
+#form{
+    display:flex;
+    margin-bottom:10px;
+}
+
+.answer-question>form>input{
+    border-radius: 5px;
+    border:none;
+    box-shadow:1px 1px 1px rgb(206, 204, 204) 
+
+}
+
+button{
+    width:30%;
+    padding:5px;
+}
+
 .tags-and-username{
     display:flex;
     gap:30px;
@@ -77,14 +146,12 @@
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* background-color: yellow; */
 }
 
 .tag{
     display:flex;
     gap:20px;
     color:white;
-    /* background-color: yellow; */
 }
 
 #tag{
@@ -97,21 +164,22 @@
     gap:1.5rem;
     padding: 0 0.5rem 0 0.5rem ;
     border:1px rgb(206, 204, 204) solid;
-  
-   
+    padding-top:5px;
 }  
 .answer{
     display:flex;
     justify-content: center;
     flex-direction: column;
     gap:0.5rem;
-    border-top:1px rgb(206, 204, 204) solid;
+    border-bottom:1px rgb(206, 204, 204);
 
 }
 
 .ans{
     display:flex;
     gap:0.5rem;
+    border:1px solid rgb(206, 204, 204) ;
+    box-shadow:1px 1px 1px rgb(206, 204, 204) ;
 }
 
 
@@ -125,8 +193,8 @@
 .answer-question{
     display:flex;
     flex-direction: column;
-    padding: 0.5rem;
-    border-top:1px rgb(206, 204, 204) solid;
+    padding-left: 0.5rem;
+    border:2px rgb(206, 204, 204) solid;
 }
 
 #form{
@@ -137,5 +205,20 @@
 
 .Comments{
     display:flex;
+    border:1px solid rgb(206, 204, 204) ;
+    box-shadow:1px 1px 1px rgb(206, 204, 204) ;
+    padding-left:10px;
+    gap:10px;
+
     
 }
+
+@media (max-width: 600px) {
+    .main{
+        display:flex;
+        flex-direction:column;
+    }
+    .sidebar{
+        width:250px;
+    }
+  }

@@ -96,8 +96,20 @@ export class QuestionsComponent {
   }
   
 
+  addOrUpdate(){
+    this.router.navigate(['/addorupdate'])
+  }
+
+ home(){
+    this.router.navigate([''])
+  }
+  profile(){
+    this.router.navigate(['/users'])
+  }
   
-  
+  signOut(){
+    this.router.navigate(['/users'])
+  }
 
   }
 

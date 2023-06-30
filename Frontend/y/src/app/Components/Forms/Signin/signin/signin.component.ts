@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { Appstate } from 'src/app/States/appState';
 import { logInUser } from 'src/app/States/Actions/usersAction';
 import { AuthenticationService } from 'src/app/Services/authentication.service';
+import { logInSuccess } from 'src/app/States/Reducers/usersReducer';
 
 @Component({
   selector: 'app-signin',
@@ -30,10 +31,31 @@ export class SigninComponent implements OnInit{
 
   onSubmit(){
     this.store.dispatch(logInUser({logInUser:this.form.value}))
-    
+    this.store.select(logInSuccess).subscribe(
+      res=>{
+        this.authService.login(res)
+        console.log(res.Role);
+
+        if(res.Role==='user'){
+          this.router.navigate([''])
+        }
+        else if(res.Role==='admin'){
+          this.router.navigate(['/qadmin'])
+        }
+      },
+      err=>{
+        this.errorMessage =err.message 
+      }
+    )
     console.log(this.form)
     this.form.reset()
     this.router.navigate([''])
+
+  }
+
+
+  signup(){
+    this.router.navigate(['signup'])
   }
 }
 

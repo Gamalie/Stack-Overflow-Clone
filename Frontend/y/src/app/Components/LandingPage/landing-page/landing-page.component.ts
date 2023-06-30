@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -9,5 +10,17 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent {
+
+  constructor(private router:Router){
+
+  }
+
+  signin(){
+    this.router.navigate(['signin'])
+  }
+
+  signup(){
+    this.router.navigate(['signup'])
+  }
 
 }

@@ -13,7 +13,7 @@
 
 .logo{
     color:black;
-    font-size: 35px;
+    font-size: 20px;
     font-weight:bold;
 }
 
@@ -34,20 +34,58 @@
     display:flex;
     padding:10px;
     gap:20px;
+    height:400px;
+    justify-content: center;
 }
+
+.welcome-note{
+    display:flex;
+    flex-direction:column;
+    flex:wrap;
+    background: #000;
+    color:#EADCDC;
+    /* max-width:500px; */
+    padding-left:20px;
+    width:70%;
+    margin:0;
+}
+ #hero{
+    font-size:50px;
+    font-weight:700;
+ }
+
+ #ans{
+    font-size:20px;
+    font-weight:500;
+
+
+ }
 
 button{
     background:#FC6611;
     border:none;
     padding:10px;
+    width:100px;
     color:white;
     font-weight: 550;
     border-radius:10px;
     
 }
 
-.welcome-note{
+
+.footer{
     display:flex;
+    gap:3rem;
+    justify-content: center;
+    border-top: 2px rgb(206, 204, 204) solid;;
+
+    /* justify-content:space-between; */
+}
+
+.socials{
+    display:flex;
+    justify-content:space-between;
+    gap:2rem;
 }
 
 @media (max-width: 600px) {

@@ -5,16 +5,50 @@
 .navbar{
     display:flex;
     align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     border-bottom:1px rgb(206, 204, 204) solid;
-   border-top:1px rgb(206, 204, 204) solid;
+    border-top:1px rgb(206, 204, 204) solid;
 }
 
 .logo{
-    width:25%;
+    color:black;
+    font-size: 25px;
+    font-weight:bold;
 }
 
-.search-bar{
-    width:50%;
+.search-bar>input{
+  height:40px;
+  min-width:300px;
+  border:2px rgb(206, 204, 204) solid;
+  border-radius: 10px;
+}
+
+.main{
+    display:flex;
+    padding:10px;
+    gap:20px;
+}
+
+
+.sidebar{
+    display:block;
+    padding-left:10px;
+    border-radius:0.5rem;
+    width:15rem;
+    border:1px solid #f3b38f;
+    height:70%;
+    color:blue;
+}
+
+.sidebar>p{
+    background:rgb(243, 245, 245);
+    padding-right:10px;
+    padding-left:5px;
+    height:30px;
+    display:flex;
+    align-content:center;
+    padding-top:10px;
 }
 
 .main{
@@ -25,13 +59,6 @@
     gap:20px;
 }
 
-.sidebar{
-    width:30%;
-    padding-left:10px;
-    border-radius: 1rem;
-    border:1px solid #FC6611;
-    height:90%;
-}
 
 .right{
     display:flex;
@@ -69,8 +96,8 @@ button{
     border-radius: 10px;
     color:white;
     font-weight:700;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .question{
@@ -80,7 +107,9 @@ button{
     border-radius: 1rem;
     padding-left: 5px;
     padding-right: 10px;
-    width:92%; 
+    width:90%;
+    box-shadow:3px 2px 2px rgb(206, 204, 204) 
+
 }
 
 .statistics{
@@ -108,12 +137,22 @@ button{
 .tags-and-username{
     display:flex;
     gap:30px;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .username{
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.user-question{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    align-items:center;
+    padding-top:30px;
+    border:1px rgb(206, 204, 204) solid;
+
 }
 
 .tag{
@@ -126,3 +165,18 @@ button{
     background-color: #E58A7B;
     padding:3px;
 }
+
+@media (max-width: 600px) {
+    .main{
+        display:flex;
+        flex-direction:column;
+    }
+    .sidebar{
+        width:250px;
+    }
+    .question{
+        display:flex;
+        flex-direction: column;
+
+    }
+  }

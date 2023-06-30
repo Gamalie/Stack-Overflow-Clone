@@ -11,9 +11,11 @@
         </div>
     </div>
     <div class="main">
-        <div class="left" >
-            
-    </div>
+        <div class="sidebar">
+            <p>All Answers</p>
+            <p>Go to Profile</p>
+            <p (click)="addOrUpdate()">Add Question</p>
+          </div>
 
     <div class="right">
         <div class="question" *ngFor="let question of questions | async" >
@@ -29,7 +31,7 @@
                     <div class="username">
                         <p>@CodeForLife</p>
                     </div>
-                    <div>
+                    <div class="btn">
                         <button (click)="deleteQuestion(question.Id)"> Delete Question</button>
                     </div>
                 </div>

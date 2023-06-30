@@ -43,4 +43,12 @@ addOrUpdate(){
   this.router.navigate(['/addorupdate'])
 }
 
+userProfile(){
+  this.router.navigate(['/users'])
+}
+
+signOut(){
+  this.router.navigate(['/signin'])
+}
+
 }

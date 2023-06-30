@@ -5,17 +5,52 @@
 .navbar{
     display:flex;
     align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     border-bottom:1px rgb(206, 204, 204) solid;
-   border-top:1px rgb(206, 204, 204) solid;
+    border-top:1px rgb(206, 204, 204) solid;
 }
 
 .logo{
-    width:30%;
+    color:black;
+    font-size: 25px;
+    font-weight:bold;
 }
 
-.search-bar{
-    width:50%;
+.search-bar>input{
+  height:40px;
+  min-width:300px;
+  border:2px rgb(206, 204, 204) solid;
+  border-radius: 10px;
 }
+
+.main{
+    display:flex;
+    padding:10px;
+    gap:20px;
+}
+
+
+.sidebar{
+    display:block;
+    padding-left:10px;
+    border-radius:0.5rem;
+    width:15rem;
+    border:1px solid #f3b38f;
+    height:70%;
+    color:blue;
+}
+
+.sidebar>p{
+    background:rgb(243, 245, 245);
+    padding-right:10px;
+    padding-left:5px;
+    height:30px;
+    display:flex;
+    align-content:center;
+    padding-top:10px;
+}
+
 
 .question{
     display:flex;
@@ -24,9 +59,7 @@
     border-radius: 1rem;
     padding-left: 5px;
     padding-right: 10px;
-    width:95%; 
-    /* justify-content:space-between; */
-    /* background-color: yellow; */
+    box-shadow:3px 2px 2px rgb(206, 204, 204); 
 }
 
 .statistics{
@@ -44,6 +77,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     width:100%;  
+    padding-left:10px;
 }
 
 .comment-field{
@@ -73,9 +107,8 @@
     flex-direction:column;
     flex-wrap: wrap;
     padding-left:0.8rem;
-    width: 50%;
     justify-content: space-evenly;
-    /* padding-top: 3rem; */
+    gap:10px;
     
 }
 
@@ -87,21 +120,38 @@
     padding:0rem 0.8rem;
 }
 
-
-.left{
+.btn{
     display:flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding:0.8rem;
-    width:50%;
-    border:1px solid #FC6611;
-    box-shadow: #bb5011;
-  
-    
+    align-items:center;
 }
+button{
+    width:120px;
+    background-color:#fc1138;
+    border: none;
+    border-radius: 10px;
+    color:white;
+    font-weight:700;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
 
 .subheading{
     display:flex;
     justify-content: space-between;
     width:90%;
 }
+
+@media (max-width: 600px) {
+    .main{
+        display:flex;
+        flex-direction:column;
+    }
+    .sidebar{
+        width:250px;
+    }
+    .question{
+        display:flex;
+        flex-direction: column;
+
+    }}

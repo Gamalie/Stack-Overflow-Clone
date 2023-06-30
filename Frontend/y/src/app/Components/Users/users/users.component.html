@@ -7,15 +7,18 @@
             <input type="search" placeholder="Search">
         </div>
         <div class="u-name">
-            <p>Name</p>
+            <p (click)="signOut()" >SignOut</p>
         </div>
     </div>
     <div class="main">
         <div class="left">
             <div class="sidebar">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic consequuntur impedit nihil. Earum voluptas rem similique. Non vitae hic esse itaque voluptas eum, ipsum quidem in alias, maiores, nostrum commodi?
-                </p>
-            </div>
+                <p>Answered Questions</p>
+                <p>Unanswered Questions</p>
+                <p>Most Answered Questions</p>
+                <p (click)="addOrUpdate()">Add Question</p>
+                <p (click)="home()">Home</p>
+              </div>
             <div class="profile">
                 <div profile-pic>
                     <img src="" alt="">

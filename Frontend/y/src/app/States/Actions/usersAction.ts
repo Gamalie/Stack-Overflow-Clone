@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import {LogInuser, NewUsers, UpdateProfile, Users} from '../../Interface'
+import {LogInuser, LoggedInUserSuccess, NewUsers, UpdateProfile, Users} from '../../Interface'
 
 
 
@@ -9,7 +9,7 @@ export const addUserFailure = createAction('[AddUserFailure]-AddUserFailure',pro
 
 
 export const logInUser =createAction('[NewUser] - LogInUser',props<{logInUser:LogInuser}>())
-export const logInUserSuccess = createAction('[LogInUserSuccess]-LogInUserSuccess',props<{succMess:string}>())
+export const logInUserSuccess = createAction('[LogInUserSuccess]-LogInUserSuccess',props<{succMess:LoggedInUserSuccess}>())
 export const logInUserFailure = createAction('[LogInUserFailure]-LogInUserFailure',props<{failMess:string}>())
 
 export const updateProfile = createAction('[UserProfile]- UpdateProfile',props<{id:string,userProfile:UpdateProfile}>())

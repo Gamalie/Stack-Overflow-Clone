@@ -37,15 +37,27 @@
     flex-direction:column;
     width:30%;
     gap:20px;
+    width:30%;
 }
 
 .sidebar{
+    display:block;
     padding-left:10px;
-    border-radius: 1rem;
-    border:1px solid #FC6611;
+    border-radius:0.5rem;
+    width:15rem;
+    border:1px solid #f3b38f;
     height:70%;
-    box-shadow: 1px 2px 2px #FC6611 ;
+    color:blue;
+}
 
+.sidebar>p{
+    background:rgb(243, 245, 245);
+    padding-right:10px;
+    padding-left:5px;
+    height:30px;
+    display:flex;
+    align-content:center;
+    padding-top:10px;
 }
 
 .profile{
@@ -57,12 +69,13 @@
 }
 
 .right{
-    width:65%;
+   
     border:2px rgb(206, 204, 204) solid;
     border-radius: 10px;
     display:flex;
     gap:1rem;
     padding: 0.5rem;
+    width:70%;
 }
 
 .profile-pic{

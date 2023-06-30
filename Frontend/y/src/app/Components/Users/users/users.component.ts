@@ -23,11 +23,6 @@ export class UsersComponent {
 
   }
 
-  // getOneUser(){
-  //   this.store.dispatch(getAllUsers())  //action name
-  //   this.users = this.store.select(getAllUser)//selector name
-    
-  // }
 
   ngOnInit(){
     this.form = this.formBuilder.group({
@@ -46,6 +41,16 @@ onSubmit(){
 }
 
 
+addOrUpdate(){
+  this.router.navigate(['/addorupdate'])
+}
 
+home(){
+  this.router.navigate([''])
+}
+
+signOut(){
+  this.router.navigate(['/signin'])
+}
 
 }

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store"
-import {Users} from 'src/app/Interface'
+import {LoggedInUserSuccess, Users} from 'src/app/Interface'
 import * as UserAction from '../Actions/usersAction'
 // import {AppState} from '../appState'
 
@@ -7,7 +7,7 @@ export interface UserReducer{
     users:Users[]
     addUserSuccess:string
     addUserFailure:string
-    logInUserSuccess:string
+    logInUserSuccess:LoggedInUserSuccess
     logInUserFailure:string,
     getUserSuccess:Users[]
     getUserFailure:string
@@ -22,7 +22,10 @@ const intialState:UserReducer ={
     users:[],
     addUserSuccess:'',
     addUserFailure:'',
-    logInUserSuccess:'',
+    logInUserSuccess:{
+        token: '', User_id: '', Role: '',
+        message: ""
+    },
     logInUserFailure:'',
     getUserSuccess:[],
     getUserFailure:'',
@@ -35,6 +38,7 @@ const intialState:UserReducer ={
 export const getUserState = createFeatureSelector<UserReducer>('users')
 export const addError = createSelector(getUserState,(state)=>state.addUserFailure)
 export const getAllUser = createSelector(getUserState,(state)=>state.users)
+export const logInSuccess = createSelector(getUserState,(state)=>state.logInUserSuccess)
 export const userReducer = createReducer(
     intialState,
 
@@ -65,7 +69,10 @@ export const userReducer = createReducer(
     on(UserAction.logInUserFailure,(state,action)=>{
         return{
             ...state,
-            logInUserSuccess:'',
+            logInUserSuccess:{
+                token: '', User_id: '', Role: '',
+                message: ""
+            },
             logInUserFailure:action.failMess
         }
     }),

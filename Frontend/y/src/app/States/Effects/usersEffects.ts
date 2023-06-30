@@ -27,9 +27,9 @@ export class UsersEffects{
             ofType(UserAction.logInUser),
             switchMap(action=>this.userService.logInUser(action.logInUser)
             .pipe(
-                map(users=>{
-                    localStorage.setItem('token',users.token)
-                    return UserAction.logInUserSuccess({succMess:users.message})
+                map(succMess=>{
+                    localStorage.setItem('token',succMess.token)
+                    return UserAction.logInUserSuccess({succMess})
                 }),
                 catchError(err=>of(UserAction.logInUserFailure({failMess:err.message})))
             ))

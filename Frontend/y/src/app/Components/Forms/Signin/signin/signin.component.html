@@ -11,7 +11,7 @@
                     <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Password Required</p>
 
                 <button> Sign In</button>
-                <a href="">Sign Up</a>
+                <p (click)="signup()">Sign Up</p>
             </form>
         </div>
       
