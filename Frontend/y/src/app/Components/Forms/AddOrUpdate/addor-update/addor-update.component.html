@@ -22,12 +22,15 @@
             <div class="title">
                 <p>POST YOUR QUESTION HERE</p>
                 <input type="text" id="title" placeholder="Title" formControlName="Title"  >
+                <p class="error" *ngIf="!form.get('Title')?.valid && form.get('Title')?.touched">* Title Required</p>
             </div>
             <div class="body">
                 <input type="text" id="body" placeholder="Body"formControlName="Body" >
+                <p class="error" *ngIf="!form.get('Body')?.valid && form.get('Body')?.touched">* Body Required</p>
             </div>
                     <div class="tag-field">
-                        <input type="text" id="tags-field" placeholder="Tag" formControlName="Tags" >    
+                        <input type="text" id="tags-field" placeholder="Tag" formControlName="Tags" >
+                        <p class="error" *ngIf="!form.get('Tag')?.valid && form.get('Tag')?.touched">* Tag Required</p>    
                         <button> {{action}}</button>
                     </div>
         </form>

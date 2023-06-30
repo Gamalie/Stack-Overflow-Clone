@@ -5,10 +5,10 @@
             <form (ngSubmit)="onSubmit()" [formGroup]="form">
                 <h4 class="title"> SIGN IN</h4>
                 <input type="text" name="input" placeholder="Enter Email" formControlName="Email">
-                    <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Email Required</p>
+                    <p class="error" *ngIf="!form.get('Email')?.valid && form.get('Email')?.touched">*Email Required</p>
 
                 <input type="password" name="input" placeholder="Enter Password" formControlName="Password">
-                    <p class="error" *ngIf="!form.get('input')?.valid && form.get('input')?.touched">*Password Required</p>
+                    <p class="error" *ngIf="!form.get('Password')?.valid && form.get('Password')?.touched">*Password Required</p>
 
                 <button> Sign In</button>
                 <p (click)="signup()">Sign Up</p>

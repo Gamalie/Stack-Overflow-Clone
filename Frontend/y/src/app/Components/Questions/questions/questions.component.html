@@ -80,6 +80,7 @@
                       placeholder="Enter Your Comment"
                       formControlName="Body"
                     />
+                    <p class="error" *ngIf="!form.get('Body')?.valid && form.get('Body')?.touched">*Text is Required</p>
                     <button (click)="getComment(ans.Answer_id)">
                         Show Comment
                       </button>
@@ -98,6 +99,8 @@
                     placeholder="Enter Title of Your Answer"
                     formControlName="Title"
                   />
+                  <p class="error" *ngIf="!form.get('Title')?.valid && form.get('Title')?.touched">*Title is Required</p>
+
                   <input
                     type="text"
                     name="input"
@@ -105,6 +108,8 @@
                     placeholder="Enter Your Answer"
                     formControlName="Body"
                   />
+                  <p class="error" *ngIf="!form.get('Answer is Required')?.valid && form.get('Answer is Required')?.touched">*Answer is Required is Required</p>
+
                   <button>Enter to Add Answer</button>
                 </form>
               </div>
